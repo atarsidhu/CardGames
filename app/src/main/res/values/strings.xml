@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CardGames</string>
+    <string name="go_fish_description">Go Fish</string>
+    <string name="blackjack_description">Blackjack</string>
 </resources>
