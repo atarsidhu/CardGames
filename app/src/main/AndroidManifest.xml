@@ -9,9 +9,13 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".Blackjack">
+        <activity
+            android:name=".Blackjack"
+            android:parentActivityName=".MainActivity">
         </activity>
-        <activity android:name=".GoFish">
+        <activity
+            android:name=".GoFish"
+            android:parentActivityName=".MainActivity">
         </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -20,5 +24,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>

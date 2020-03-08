@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground"
+    android:background="@color/colorBackgroundVariant"
     tools:context=".MainActivity">
 
     <ImageButton
         android:id="@+id/imageButtonGoFish"
-        android:layout_width="150dp"
+        android:layout_width="300dp"
         android:layout_height="150dp"
         android:layout_marginTop="120dp"
-        android:background="@drawable/go_fish"
+        android:background="@drawable/go_fish_v2"
         android:contentDescription="@string/go_fish_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,10 +20,10 @@
 
     <ImageButton
         android:id="@+id/imageButtonBlackjack"
-        android:layout_width="150dp"
+        android:layout_width="300dp"
         android:layout_height="150dp"
         android:layout_marginBottom="120dp"
-        android:background="@drawable/blackjack"
+        android:background="@drawable/blackjack_v2"
         android:contentDescription="@string/blackjack_description"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

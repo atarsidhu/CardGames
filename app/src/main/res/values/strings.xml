@@ -2,4 +2,10 @@
     <string name="app_name">CardGames</string>
     <string name="go_fish_description">Go Fish</string>
     <string name="blackjack_description">Blackjack</string>
+
+    <string name="suit_hearts">Hearts</string>
+    <string name="suit_diamonds">Diamonds</string>
+    <string name="suit_clubs">Clubs</string>
+    <string name="suit_spades">Spades</string>
+
 </resources>
