@@ -1,11 +1,26 @@
 <resources>
     <string name="app_name">Card Game Hub</string>
     <string name="go_fish_description">Go Fish</string>
-    <string name="blackjack_description">Blackjack</string>
+    <string name="speed_description">Speed</string>
 
-    <string name="suit_hearts">Hearts</string>
-    <string name="suit_diamonds">Diamonds</string>
-    <string name="suit_clubs">Clubs</string>
-    <string name="suit_spades">Spades</string>
+    <string name="suit_0">Spades</string>
+    <string name="suit_1">Hearts</string>
+    <string name="suit_2">Clubs</string>
+    <string name="suit_3">Diamonds</string>
+
+    <string name="rank_1">Ace</string>
+    <string name="rank_2">Two</string>
+    <string name="rank_3">Three</string>
+    <string name="rank_4">Four</string>
+    <string name="rank_5">Five</string>
+    <string name="rank_6">Six</string>
+    <string name="rank_7">Seven</string>
+    <string name="rank_8">Eight</string>
+    <string name="rank_9">Nine</string>
+    <string name="rank_10">Ten</string>
+    <string name="rank_11">Jack</string>
+    <string name="rank_12">Queen</string>
+    <string name="rank_13">King</string>
+    <string name="completed_pairs">Completed Pairs</string>
 
 </resources>
