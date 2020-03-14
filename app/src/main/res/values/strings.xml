@@ -3,6 +3,12 @@
     <string name="app_icon_name">CGH</string>
     <string name="go_fish_description">Go Fish</string>
     <string name="speed_description">Speed</string>
+    <string name="welcome">Welcome to Card Game Hub!</string>
+    <string name="choose_game">Choose a game to play!</string>
+
+    <string name="btn_start_game">Start Game</string>
+    <string name="btn_settings">Settings</string>
+    <string name="btn_view">How To Play</string>
 
     <string name="suit_0">Spades</string>
     <string name="suit_1">Hearts</string>
