@@ -31,7 +31,7 @@ class Card {
     }
 
     public void setRank(int newRank) {
-        if (newRank >= 1 && newRank <= 4) rank = newRank;
+        if (newRank >= 1 && newRank <= 13) rank = newRank;
     }
 
     public int getRank() {
