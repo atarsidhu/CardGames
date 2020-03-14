@@ -29,5 +29,11 @@
     <string name="rank_12">Queen</string>
     <string name="rank_13">King</string>
     <string name="completed_pairs">Completed Pairs</string>
+    <string name="choose_a_game">Choose a Game</string>
+    <string name="suit_spades">Spades</string>
+    <string name="blackjack_description">Blackjack</string>
+    <string name="suit_hearts">Hearts</string>
+    <string name="suit_diamonds">Diamonds</string>
+    <string name="suit_clubs">Clubs</string>
 
 </resources>
