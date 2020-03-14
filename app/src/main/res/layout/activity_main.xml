@@ -7,25 +7,10 @@
     android:background="@color/colorBackgroundVariant"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:text="@string/choose_a_game"
-        android:textAllCaps="true"
-        android:textColor="@color/colorPrimary"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ScrollView
-        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="25dp"
         android:ellipsize="none"
         android:fadingEdgeLength="100dp"
         android:requiresFadingEdge="vertical"
@@ -67,14 +52,6 @@
 
             <ImageButton
                 android:id="@+id/imageButtonGoFish3"
-                android:layout_width="300dp"
-                android:layout_height="150dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/go_fish_v2"
-                android:contentDescription="@string/go_fish_description" />
-
-            <ImageButton
-                android:id="@+id/imageButtonGoFish4"
                 android:layout_width="300dp"
                 android:layout_height="150dp"
                 android:layout_marginBottom="10dp"
