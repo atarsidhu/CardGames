@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         goFishImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent startIntent = new Intent(getApplicationContext(), GoFish.class);
+                Intent startIntent = new Intent(getApplicationContext(), GoFishMaster.class);
                 startActivity(startIntent);
             }
         });
