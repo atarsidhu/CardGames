@@ -21,5 +21,23 @@ public class GoFishMaster extends AppCompatActivity {
                 startActivity(startIntent);
             }
         });
+
+        Button settingsBtn = findViewById(R.id.btnSettings);
+        settingsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent startIntent = new Intent(getApplicationContext(), GoFishSettings.class);
+                startActivity(startIntent);
+            }
+        });
+
+        Button instructionsBtn = findViewById(R.id.btnHowToPlay);
+        instructionsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent startIntent = new Intent(getApplicationContext(), GoFishInstructions.class);
+                startActivity(startIntent);
+            }
+        });
     }
 }

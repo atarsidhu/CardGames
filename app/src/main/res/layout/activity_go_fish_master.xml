@@ -14,7 +14,6 @@
             android:layout_height="wrap_content"
             android:id="@+id/btnSettings" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@+id/btnStartGame"
-            app:layout_constraintHorizontal_bias="0.498"
             android:textSize="24sp"/>
     <Button
             android:text="@string/btn_start_game"
@@ -25,7 +24,7 @@
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.641"
             android:textSize="24sp"/>
     <Button
-            android:text="@string/btn_view"
+            android:text="@string/btn_instructions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/btnHowToPlay" app:layout_constraintStart_toStartOf="parent"
@@ -37,6 +36,6 @@
             android:layout_height="wrap_content" app:srcCompat="@drawable/go_fish_transparent"
             android:id="@+id/imageView2" app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
-            android:contentDescription="@string/go_fish_description" android:layout_marginTop="92dp"
+            android:contentDescription="@string/go_fish_description"
             app:layout_constraintHorizontal_bias="0.0"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
