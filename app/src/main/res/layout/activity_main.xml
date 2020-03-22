@@ -27,20 +27,20 @@
             android:orientation="vertical">
 
             <ImageButton
-                android:id="@+id/imageButtonBlackjack"
-                android:layout_width="300dp"
-                android:layout_height="150dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/blackjack_v2"
-                android:contentDescription="@string/speed_description" />
-
-            <ImageButton
                 android:id="@+id/imageButtonGoFish"
                 android:layout_width="300dp"
                 android:layout_height="150dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/go_fish_v2"
                 android:contentDescription="@string/go_fish_description" />
+
+            <ImageButton
+                android:id="@+id/imageButtonBlackjack"
+                android:layout_width="300dp"
+                android:layout_height="150dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/blackjack_v2"
+                android:contentDescription="@string/speed_description" />
 
             <ImageButton
                 android:id="@+id/imageButtonGoFish2"

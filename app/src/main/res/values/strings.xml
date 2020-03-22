@@ -36,4 +36,22 @@
     <string name="rank_13">King</string>
     <string name="completed_pairs">Completed Pairs</string>
 
+    <string name="rules_overview">Overview</string>
+    <string name="rules_gameplay">Gameplay</string>
+    <string name="rules_winning">Winning</string>
+    <string name="rules_setup">Setup</string>
+    <string name="rules_on_your_turn">On Your Turn</string>
+
+    <string name="go_fish_overview">Go Fish is a game of chance, with a healthy dose of reasoning. Played with a single deck of cards, players take turns guessing a card that think the other player may
+    hold, and taking them for themselves if they guess correctly. Points are scored by collecting pairs of the same card value (e.g. an Ace of Hearts and an Ace of Clubs).</string>
+    <string name="go_fish_setup">A player is randomly chosen to be the dealer. Starting with the player after them, each player is dealt seven (7) cards.\n\n</string>
+    <string name="go_fish_gameplay">
+        1.  The player after the dealer may ask a player if they have cards of a certain rank (e.g. \"Do you have any Aces?\").\n\n
+        1a. If they don\'t, then the player who asked must draw the top card from the deck, and the turn passes.\n\n
+        1b. If they do, then those cards are given to the asking player from the other player\'s hand. The asking player may ask for another rank.\n\n
+        2.  After receiving cards, either from another player or from the deck, a player may search for pairs of cards within their hand. A pair is any two cards of the same rank, regardless of suit.
+        If any pairs are found, they are removed from the game, and that player scores a point for each pair found.
+    </string>
+    <string name="go_fish_winning">A game is completed once there are no more cards left to draw, or one of the players empties their hand. The player with the most points wins.</string>
+
 </resources>
