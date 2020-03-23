@@ -1,5 +1,6 @@
 package com.example.cardgames;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,13 +17,9 @@ public class GoFishSettings extends AppCompatActivity {
         btnDifficult.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openDialog();
+                Intent startIntent = new Intent(getApplicationContext(), DifficultyPopUp.class);
+                startActivity(startIntent);
             }
         });
-    }
-
-    public void openDialog(){
-
-
     }
 }

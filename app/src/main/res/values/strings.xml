@@ -1,4 +1,6 @@
 <resources>
+    <!-- __________________________________ GENERAL STRINGS _____________________________________________ -->
+
     <string name="app_name">Card Game Hub</string>
     <string name="app_icon_name">CGH</string>
     <string name="go_fish_description">Go Fish</string>
@@ -36,15 +38,17 @@
     <string name="rank_13">King</string>
     <string name="completed_pairs">Completed Pairs</string>
 
+    <!-- ____________________________________ HOW TO PLAY STRINGS _________________________________________ -->
+
     <string name="rules_overview">Overview</string>
     <string name="rules_gameplay">Gameplay</string>
     <string name="rules_winning">Winning</string>
     <string name="rules_setup">Setup</string>
     <string name="rules_on_your_turn">On Your Turn</string>
 
-    <string name="go_fish_overview">Go Fish is a game of chance, with a healthy dose of reasoning. Played with a single deck of cards, players take turns guessing a card that think the other player may
+    <string name="go_fish_overview">Go Fish is a game of chance, with a healthy dose of reasoning. Played with a single deck of cards, players take turns guessing a card that they think the other player may
     hold, and taking them for themselves if they guess correctly. Points are scored by collecting pairs of the same card value (e.g. an Ace of Hearts and an Ace of Clubs).</string>
-    <string name="go_fish_setup">A player is randomly chosen to be the dealer. Starting with the player after them, each player is dealt seven (7) cards.\n\n</string>
+    <string name="go_fish_setup">A player is randomly chosen to be the dealer. Starting with the player after them, each player is dealt seven (7) cards. \n\n</string>
     <string name="go_fish_gameplay">
         1.  The player after the dealer may ask a player if they have cards of a certain rank (e.g. \"Do you have any Aces?\").\n\n
         1a. If they don\'t, then the player who asked must draw the top card from the deck, and the turn passes.\n\n
@@ -54,4 +58,8 @@
     </string>
     <string name="go_fish_winning">A game is completed once there are no more cards left to draw, or one of the players empties their hand. The player with the most points wins.</string>
 
+    <!-- _____________________________________ SETTINGS STRINGS __________________________________________ -->
+
+    <string name="difficulty_normal">Normal</string>
+    <string name="difficulty_hard">Hard</string>
 </resources>

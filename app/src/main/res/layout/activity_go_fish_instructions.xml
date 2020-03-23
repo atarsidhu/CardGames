@@ -33,78 +33,78 @@
                 app:srcCompat="@drawable/go_fish_transparent" />
 
             <TextView
-                android:id="@+id/textView13"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="16dp"
-                android:text="@string/rules_overview"
-                android:textAllCaps="true"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                    android:id="@+id/textView13"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="16dp"
+                    android:text="@string/rules_overview"
+                    android:textAllCaps="true"
+                    android:textSize="24sp"
+                    android:textStyle="bold" android:textColor="#FFFFFF"/>
 
             <TextView
-                android:id="@+id/textView14"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/go_fish_overview"
-                android:textSize="18sp" />
+                    android:id="@+id/textView14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/go_fish_overview"
+                    android:textSize="18sp" android:textColor="#FFFFFFFF"/>
 
             <TextView
-                android:id="@+id/textView20"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="16dp"
-                android:text="@string/rules_gameplay"
-                android:textAllCaps="true"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                    android:id="@+id/textView20"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="16dp"
+                    android:text="@string/rules_gameplay"
+                    android:textAllCaps="true"
+                    android:textSize="24sp"
+                    android:textStyle="bold" android:textColor="#FFFFFFFF"/>
 
             <TextView
-                android:id="@+id/textView24"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/rules_setup"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                    android:id="@+id/textView24"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/rules_setup"
+                    android:textSize="18sp"
+                    android:textStyle="bold" android:textColor="#FFFFFFFF"/>
 
             <TextView
-                android:id="@+id/textView26"
-                android:layout_width="match_parent"
-                android:layout_height="69dp"
-                android:text="@string/go_fish_setup"
-                android:textSize="18sp" />
+                    android:id="@+id/textView26"
+                    android:layout_width="match_parent"
+                    android:layout_height="69dp"
+                    android:text="@string/go_fish_setup"
+                    android:textSize="18sp" android:textColor="#FFFFFFFF"/>
 
             <TextView
-                android:id="@+id/textView28"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/rules_on_your_turn"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                    android:id="@+id/textView28"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/rules_on_your_turn"
+                    android:textSize="18sp"
+                    android:textStyle="bold" android:textColor="#FFFFFFFF"/>
 
             <TextView
-                android:id="@+id/textView21"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/go_fish_gameplay"
-                android:textSize="18sp" />
+                    android:id="@+id/textView21"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/go_fish_gameplay"
+                    android:textSize="18sp" android:textColor="#FFFFFFFF"/>
 
             <TextView
-                android:id="@+id/textView23"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="16dp"
-                android:text="@string/rules_winning"
-                android:textAllCaps="true"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                    android:id="@+id/textView23"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="16dp"
+                    android:text="@string/rules_winning"
+                    android:textAllCaps="true"
+                    android:textSize="24sp"
+                    android:textStyle="bold" android:textColor="#FFFFFFFF"/>
 
             <TextView
-                android:id="@+id/textView22"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/go_fish_winning"
-                android:textSize="18sp" />
+                    android:id="@+id/textView22"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/go_fish_winning"
+                    android:textSize="18sp" android:textColor="#FFFFFFFF"/>
 
         </LinearLayout>
     </ScrollView>
