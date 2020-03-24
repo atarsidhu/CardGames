@@ -5,7 +5,7 @@
     <string name="app_icon_name">CGH</string>
     <string name="go_fish_description">Go Fish</string>
     <string name="speed_description">Speed</string>
-    <string name="welcome">Welcome to Card Game Hub!</string>
+    <string name="welcome">Welcome to \n Card Game Hub!</string>
     <string name="choose_game">Choose a game to play!</string>
 
     <string name="btn_start_game">Start Game</string>
@@ -14,6 +14,7 @@
     <string name="btn_difficulty">Change Difficulty</string>
     <string name="btn_rate">Rate Go Fish</string>
     <string name="btn_language">Change Language</string>
+    <string name="btn_save">Save</string>
     <string name="rb_english">English</string>
     <string name="rb_french">French</string>
     <string name="txtLanguage">Language</string>
@@ -60,6 +61,7 @@
 
     <!-- _____________________________________ SETTINGS STRINGS __________________________________________ -->
 
+    <string name="difficulty_select">Select Difficulty</string>
     <string name="difficulty_normal">Normal</string>
     <string name="difficulty_hard">Hard</string>
 </resources>

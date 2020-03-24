@@ -17,9 +17,15 @@ public class GoFishSettings extends AppCompatActivity {
         btnDifficult.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent startIntent = new Intent(getApplicationContext(), DifficultyPopUp.class);
-                startActivity(startIntent);
+                //Intent startIntent = new Intent(getApplicationContext(), DifficultyPopUp.class);
+                //startActivity(startIntent);
+                openDialog();
             }
         });
+    }
+
+    public void openDialog(){
+        DifficultyPopUp dialog = new DifficultyPopUp();
+        dialog.show(getSupportFragmentManager(), "Dialog");
     }
 }

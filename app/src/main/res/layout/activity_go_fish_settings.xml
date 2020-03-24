@@ -17,6 +17,7 @@
             android:layout_marginTop="28dp" android:textSize="50sp" android:textColor="#FFFFFF"
             android:shadowColor="#000000" android:shadowDx="5" android:shadowDy="5" android:shadowRadius="3"
     />
+
     <Button
             android:text="@string/btn_difficulty"
             android:layout_width="wrap_content"
@@ -24,8 +25,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="424dp" app:layout_constraintHorizontal_bias="0.496"
-            android:id="@+id/btnDifficulty" android:textSize="24sp"/>
-
+            android:id="@+id/btnDifficulty" android:textSize="24sp" app:layout_constraintBottom_toTopOf="@+id/btnRate"
+            app:layout_constraintVertical_bias="1.0"/>
     <Button
             android:text="@string/btn_rate"
             android:layout_width="wrap_content"
