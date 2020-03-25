@@ -8,36 +8,23 @@
     android:background="@drawable/underwater"
     tools:context=".GoFish">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <HorizontalScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
+        android:layout_height="150dp"
+        android:ellipsize="marquee"
+        android:fadingEdgeLength="16dp"
+        android:requiresFadingEdge="horizontal"
+        android:scrollbars="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/textView4"
+        <LinearLayout
+            android:id="@+id/aiHand"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="[ 999 ]"
-            android:textColor="@color/colorPrimary"
-            android:textSize="36sp" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="[ 999 ]"
-            android:textColor="@color/colorPrimary"
-            android:textSize="36sp" />
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:orientation="horizontal" />
+    </HorizontalScrollView>
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -48,6 +35,33 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/humanScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Human"
+                android:textColor="@color/colorBackground"
+                android:textSize="36sp" />
+
+            <TextView
+                android:id="@+id/aiScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="AI"
+                android:textColor="@color/colorBackground"
+                android:textSize="36sp" />
+        </LinearLayout>
+
         <Button
             android:id="@+id/button"
             android:layout_width="fill_parent"
@@ -57,15 +71,15 @@
             android:text="@string/completed_pairs" />
 
         <HorizontalScrollView
-            android:id="@+id/horizontalScrollView"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:ellipsize="none"
-            android:fadingEdgeLength="40dp"
+            android:ellipsize="marquee"
+            android:fadingEdgeLength="16dp"
             android:requiresFadingEdge="horizontal"
             android:scrollbars="none">
 
             <LinearLayout
+                android:id="@+id/playerHand"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:orientation="horizontal" />

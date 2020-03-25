@@ -12,7 +12,7 @@ import java.util.logging.ConsoleHandler;
  * The <code>value</code> attribute is a numerical representation of both rank and suit.<br>
  * Rank is multiplied by 16 and then added to the suit value.
  */
-class Card {
+public class Card {
 
     private int rank;
     private int suit;
