@@ -31,7 +31,7 @@ public class Card {
     }
 
     public void setRank(int newRank) {
-        if (newRank >= 1 && newRank <= 13) rank = newRank;
+        if (newRank >= 2 && newRank <= 14) rank = newRank;
     }
 
     public int getRank() {
@@ -53,4 +53,6 @@ public class Card {
     public String getStyleId() {
         return rank + "_of_" + suit;
     }
+
+    public String getRankStr() { return String.valueOf(rank); };
 }

@@ -39,6 +39,7 @@ public class DifficultyPopUp extends AppCompatDialogFragment {
         final LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.activity_difficulty_popup, null);
         View titleView = inflater.inflate(R.layout.dialog_title, null);
+
         builder.setView(view).setCustomTitle(titleView)
                 .setNegativeButton("Save", new DialogInterface.OnClickListener() {
             @Override

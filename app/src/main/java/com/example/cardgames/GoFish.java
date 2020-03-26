@@ -1,5 +1,6 @@
 package com.example.cardgames;
 
+import android.graphics.Color;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import android.os.Bundle;
@@ -82,8 +83,31 @@ public class GoFish extends AppCompatActivity {
         // Player Hand
         for (Card temp : human.getHand()) {
             TextView tempText = new TextView(this);
-            tempText.setText(temp.getStyleId());
-            tempText.setBackgroundResource(R.drawable.card_base);
+
+            // Rank
+            tempText.setText(temp.getRankStr());
+            if(temp.getRankStr().contains("11"))
+                tempText.setText("J");
+            else if(temp.getRankStr().contains("12"))
+                tempText.setText("Q");
+            else if(temp.getRankStr().contains("13"))
+                tempText.setText("K");
+            else if(temp.getRankStr().contains("14"))
+                tempText.setText("A");
+
+            tempText.setTextSize(30);
+            tempText.setTextColor(getResources().getColor(R.color.colorPrimary));
+
+            // Suit
+            if(temp.getSuit() == 0)
+                tempText.setBackgroundResource(R.drawable.card_spade);
+            else if(temp.getSuit() == 1)
+                tempText.setBackgroundResource(R.drawable.card_heart);
+            else if(temp.getSuit() == 2)
+                tempText.setBackgroundResource(R.drawable.card_club);
+            else
+                tempText.setBackgroundResource(R.drawable.card_diamond);
+
             tempText.setWidth(300);
             playerHand.addView(tempText, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
         }
@@ -91,8 +115,15 @@ public class GoFish extends AppCompatActivity {
         // AI Hand
         for (Card temp : AI.getHand()) {
             TextView tempText = new TextView(this);
-            tempText.setText(temp.getStyleId());
-            tempText.setBackgroundResource(R.drawable.card_base);
+            tempText.setText(temp.getRankStr());
+            if(temp.getSuit() == 0)
+                tempText.setBackgroundResource(R.drawable.card_spade);
+            else if(temp.getSuit() == 1)
+                tempText.setBackgroundResource(R.drawable.card_heart);
+            else if(temp.getSuit() == 2)
+                tempText.setBackgroundResource(R.drawable.card_club);
+            else
+                tempText.setBackgroundResource(R.drawable.card_diamond);
             tempText.setWidth(300);
             aiHand.addView(tempText, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
         }

@@ -4,6 +4,7 @@
     <color name="colorPrimaryVariant">#2FA1EC</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorAccentVariant">#F44336</color>
-    <color name="colorBackground">#DDDDDD</color>
+    <color name="colorBackground">#FFFFFF</color>
     <color name="colorBackgroundVariant">#292929</color>
+    <color name="black">#000000</color>
 </resources>
