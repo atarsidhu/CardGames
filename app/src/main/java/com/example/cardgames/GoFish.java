@@ -1,6 +1,7 @@
 package com.example.cardgames;
 
-import android.graphics.Color;
+import android.view.View;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import android.os.Bundle;
@@ -32,6 +33,11 @@ public class GoFish extends AppCompatActivity {
 
     // Constants
     int STARTING_HAND_SIZE = 7;
+    boolean anySelected = false;
+    boolean spadeSelected = false;
+    boolean heartSelected = false;
+    boolean clubSelected = false;
+    boolean diamondSelected = false;
 
     private void playGame() {
         Log.i("Go Fish", "Playing Game");
@@ -79,10 +85,10 @@ public class GoFish extends AppCompatActivity {
     }
 
     private void updateUI() {
-
         // Player Hand
-        for (Card temp : human.getHand()) {
-            TextView tempText = new TextView(this);
+        for (final Card temp : human.getHand()) {
+            final TextView tempText = new TextView(this);
+            //tempText.setTag(temp.getRank());
 
             // Rank
             tempText.setText(temp.getRankStr());
@@ -110,12 +116,60 @@ public class GoFish extends AppCompatActivity {
 
             tempText.setWidth(300);
             playerHand.addView(tempText, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
+
+            // Tap a card to "select" it. Changes selected card's trim to orange.
+            // When a card is selected, other cards cannot be selected. To select a different card, tap the selected
+            // card to de-select, then tap another card to select.
+            // Problem: When a different card with the same suit as the selected card is tapped, any card can start to be selected.
+            tempText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    switch (temp.getSuit()) {
+                        case 0:
+                            if (!spadeSelected && !heartSelected && !clubSelected && !diamondSelected) {
+                                    tempText.setBackgroundResource(R.drawable.card_spade_selected);
+                                    spadeSelected = true;
+                            } else {
+                                tempText.setBackgroundResource(R.drawable.card_spade);
+                                spadeSelected = false;
+                            }
+                            break;
+                        case 1:
+                            if (!spadeSelected && !heartSelected && !clubSelected && !diamondSelected) {
+                                    tempText.setBackgroundResource(R.drawable.card_heart_selected);
+                                    heartSelected = true;
+                            } else {
+                                tempText.setBackgroundResource(R.drawable.card_heart);
+                                heartSelected = false;
+                            }
+                            break;
+                        case 2:
+                            if (!spadeSelected && !heartSelected && !clubSelected && !diamondSelected) {
+                                    tempText.setBackgroundResource(R.drawable.card_club_selected);
+                                    clubSelected = true;
+                            } else {
+                                tempText.setBackgroundResource(R.drawable.card_club);
+                                clubSelected = false;
+                            }
+                            break;
+                        case 3:
+                            if (!spadeSelected && !heartSelected && !clubSelected && !diamondSelected) {
+                                tempText.setBackgroundResource(R.drawable.card_diamond_selected);
+                                diamondSelected = true;
+                            } else {
+                                tempText.setBackgroundResource(R.drawable.card_diamond);
+                                diamondSelected = false;
+                            }
+                            break;
+                    }
+                }
+            });
         }
 
         // AI Hand
         for (Card temp : AI.getHand()) {
             TextView tempText = new TextView(this);
-            tempText.setText(temp.getRankStr());
+            tempText.setText(temp.getStyleId());
             if(temp.getSuit() == 0)
                 tempText.setBackgroundResource(R.drawable.card_spade);
             else if(temp.getSuit() == 1)

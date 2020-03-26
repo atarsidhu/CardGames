@@ -14,7 +14,7 @@
                     android:width="2dp"/>
         </shape>
     </item>
-    <item android:drawable="@drawable/hearts"
+    <item android:drawable="@drawable/logo_hearts"
           android:height="75dp"
           android:width="75dp"
           android:top="25dp"

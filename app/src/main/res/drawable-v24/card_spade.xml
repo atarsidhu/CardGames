@@ -14,7 +14,7 @@
                     android:width="2dp"/>
         </shape>
     </item>
-    <item android:drawable="@drawable/spades"
+    <item android:drawable="@drawable/logo_spades"
           android:height="75dp"
           android:width="75dp"
           android:top="25dp"

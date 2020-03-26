@@ -10,8 +10,8 @@
                     android:bottom="7dp"/>
             <corners android:radius="8dp"/>
             <stroke
-                    android:color="@android:color/darker_gray"
-                    android:width="2dp"/>
+                    android:color="@color/fishOrange"
+                    android:width="3dp"/>
         </shape>
     </item>
     <item android:drawable="@drawable/logo_clubs"
