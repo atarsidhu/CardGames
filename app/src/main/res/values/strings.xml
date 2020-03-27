@@ -24,6 +24,7 @@
     <string name="suit_2">Clubs</string>
     <string name="suit_3">Diamonds</string>
 
+    <string name="rank_1">Ace</string>
     <string name="rank_2">Two</string>
     <string name="rank_3">Three</string>
     <string name="rank_4">Four</string>
@@ -38,7 +39,24 @@
     <string name="rank_13">King</string>
     <string name="rank_14">Ace</string>
 
+    <string name="rank_1_question">Aces?</string>
+    <string name="rank_2_question">Twos?</string>
+    <string name="rank_3_question">Threes?</string>
+    <string name="rank_4_question">Fours?</string>
+    <string name="rank_5_question">Fives?</string>
+    <string name="rank_6_question">Sixes?</string>
+    <string name="rank_7_question">Sevens?</string>
+    <string name="rank_8_question">Eights?</string>
+    <string name="rank_9_question">Nines?</string>
+    <string name="rank_10_question">Tens?</string>
+    <string name="rank_11_question">Jacks?</string>
+    <string name="rank_12_question">Queens?</string>
+    <string name="rank_13_question">Kings?</string>
+    <string name="rank_14_question">Aces?</string>
+
     <string name="completed_pairs">Completed Pairs</string>
+    <string name="do_you_have">Do you have any</string>
+
 
     <!-- ____________________________________ HOW TO PLAY STRINGS _________________________________________ -->
 

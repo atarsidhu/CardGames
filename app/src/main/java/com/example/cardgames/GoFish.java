@@ -2,8 +2,10 @@ package com.example.cardgames;
 
 import android.view.View;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.LinearLayout;
@@ -20,6 +22,8 @@ public class GoFish extends AppCompatActivity {
     ConstraintLayout mainLayout;
     LinearLayout playerHand;
     LinearLayout aiHand;
+    LinearLayout rankSelector;
+    View completedPairs;
     TextView humanScore;
     TextView aiScore;
 
@@ -80,6 +84,8 @@ public class GoFish extends AppCompatActivity {
         mainLayout = findViewById(R.id.go_fish_main_layout);
         playerHand = findViewById(R.id.playerHand);
         aiHand = findViewById(R.id.aiHand);
+        rankSelector = findViewById(R.id.rankSelector);
+        completedPairs = findViewById(R.id.completedPairs);
         humanScore = findViewById(R.id.humanScore);
         aiScore = findViewById(R.id.aiScore);
     }
@@ -92,24 +98,24 @@ public class GoFish extends AppCompatActivity {
 
             // Rank
             tempText.setText(temp.getRankStr());
-            if(temp.getRankStr().contains("11"))
+            if (temp.getRankStr().contains("11"))
                 tempText.setText("J");
-            else if(temp.getRankStr().contains("12"))
+            else if (temp.getRankStr().contains("12"))
                 tempText.setText("Q");
-            else if(temp.getRankStr().contains("13"))
+            else if (temp.getRankStr().contains("13"))
                 tempText.setText("K");
-            else if(temp.getRankStr().contains("14"))
+            else if (temp.getRankStr().contains("14"))
                 tempText.setText("A");
 
             tempText.setTextSize(30);
             tempText.setTextColor(getResources().getColor(R.color.colorPrimary));
 
             // Suit
-            if(temp.getSuit() == 0)
+            if (temp.getSuit() == 0)
                 tempText.setBackgroundResource(R.drawable.card_spade);
-            else if(temp.getSuit() == 1)
+            else if (temp.getSuit() == 1)
                 tempText.setBackgroundResource(R.drawable.card_heart);
-            else if(temp.getSuit() == 2)
+            else if (temp.getSuit() == 2)
                 tempText.setBackgroundResource(R.drawable.card_club);
             else
                 tempText.setBackgroundResource(R.drawable.card_diamond);
@@ -127,8 +133,8 @@ public class GoFish extends AppCompatActivity {
                     switch (temp.getSuit()) {
                         case 0:
                             if (!spadeSelected && !heartSelected && !clubSelected && !diamondSelected) {
-                                    tempText.setBackgroundResource(R.drawable.card_spade_selected);
-                                    spadeSelected = true;
+                                tempText.setBackgroundResource(R.drawable.card_spade_selected);
+                                spadeSelected = true;
                             } else {
                                 tempText.setBackgroundResource(R.drawable.card_spade);
                                 spadeSelected = false;
@@ -136,8 +142,8 @@ public class GoFish extends AppCompatActivity {
                             break;
                         case 1:
                             if (!spadeSelected && !heartSelected && !clubSelected && !diamondSelected) {
-                                    tempText.setBackgroundResource(R.drawable.card_heart_selected);
-                                    heartSelected = true;
+                                tempText.setBackgroundResource(R.drawable.card_heart_selected);
+                                heartSelected = true;
                             } else {
                                 tempText.setBackgroundResource(R.drawable.card_heart);
                                 heartSelected = false;
@@ -145,8 +151,8 @@ public class GoFish extends AppCompatActivity {
                             break;
                         case 2:
                             if (!spadeSelected && !heartSelected && !clubSelected && !diamondSelected) {
-                                    tempText.setBackgroundResource(R.drawable.card_club_selected);
-                                    clubSelected = true;
+                                tempText.setBackgroundResource(R.drawable.card_club_selected);
+                                clubSelected = true;
                             } else {
                                 tempText.setBackgroundResource(R.drawable.card_club);
                                 clubSelected = false;
@@ -169,15 +175,9 @@ public class GoFish extends AppCompatActivity {
         // AI Hand
         for (Card temp : AI.getHand()) {
             TextView tempText = new TextView(this);
-            tempText.setText(temp.getStyleId());
-            if(temp.getSuit() == 0)
-                tempText.setBackgroundResource(R.drawable.card_spade);
-            else if(temp.getSuit() == 1)
-                tempText.setBackgroundResource(R.drawable.card_heart);
-            else if(temp.getSuit() == 2)
-                tempText.setBackgroundResource(R.drawable.card_club);
-            else
-                tempText.setBackgroundResource(R.drawable.card_diamond);
+            //tempText.setText(temp.getStyleId());
+            tempText.setText(temp.getRankStr());
+            tempText.setBackgroundResource(R.drawable.card_back);
             tempText.setWidth(300);
             aiHand.addView(tempText, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
         }
@@ -185,6 +185,14 @@ public class GoFish extends AppCompatActivity {
         // Scores
         humanScore.setText(String.valueOf(human.getScore()));
         aiScore.setText(String.valueOf(AI.getScore()));
+    }
+
+    public void hideRankSelector(View v) {
+        if (completedPairs.getVisibility() == View.GONE) {
+            completedPairs.setVisibility(View.VISIBLE);
+        } else {
+            completedPairs.setVisibility(View.GONE);
+        }
     }
 
     @Override

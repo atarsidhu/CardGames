@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <solid android:color="@color/colorBackground" />
+            <padding
+                android:bottom="8dp"
+                android:left="8dp"
+                android:right="8dp"
+                android:top="8dp" />
+            <corners android:radius="8dp" />
+            <stroke
+                android:width="2dp"
+                android:color="@android:color/darker_gray" />
+        </shape>
+    </item>
+    <item
+        android:width="16dp"
+        android:height="16dp"
+        android:drawable="@drawable/logo_diamonds"
+        android:gravity="top|right"
+        android:top="0dp"
+        android:left="75dp"/>
+    <item
+        android:width="16dp"
+        android:height="16dp"
+        android:drawable="@drawable/logo_clubs"
+        android:gravity="top|left"
+        android:top="0dp"
+        android:right="0dp"/>
+    <item
+        android:width="16dp"
+        android:height="16dp"
+        android:drawable="@drawable/logo_spades"
+        android:gravity="bottom|right"
+        android:bottom="0dp"
+        android:left="75dp"/>
+    <item
+        android:width="16dp"
+        android:height="16dp"
+        android:drawable="@drawable/logo_hearts"
+        android:gravity="bottom|left"
+        android:top="100dp"
+        android:right="0dp"/>
+</layer-list>
