@@ -1,7 +1,9 @@
 package com.example.cardgames;
 
+import android.content.res.Resources;
 import android.view.View;
 
+import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -27,6 +29,19 @@ public class GoFish extends AppCompatActivity {
     TextView aiScore;
     TextView humanCardsInHand;
     TextView aiCardsInHand;
+    View btnAce = findViewById(R.id.button_aces);
+    View btnTwo = findViewById(R.id.button_twos);
+    View btnThree = findViewById(R.id.button_threes);
+    View btnFour = findViewById(R.id.button_fours);
+    View btnFive = findViewById(R.id.button_fives);
+    View btnSix = findViewById(R.id.button_sixes);
+    View btnSeven = findViewById(R.id.button_sevens);
+    View btnEight = findViewById(R.id.button_eights);
+    View btnNine = findViewById(R.id.button_nines);
+    View btnTen = findViewById(R.id.button_tens);
+    View btnJack = findViewById(R.id.button_jacks);
+    View btnQueen = findViewById(R.id.button_queens);
+    View btnKing = findViewById(R.id.button_kings);
 
     // Utilities
     Random rand;
@@ -40,11 +55,6 @@ public class GoFish extends AppCompatActivity {
 
     // Constants
     int STARTING_HAND_SIZE = 7;
-    boolean anySelected = false;
-    boolean spadeSelected = false;
-    boolean heartSelected = false;
-    boolean clubSelected = false;
-    boolean diamondSelected = false;
 
     private void playRound() {
         Log.i("Go Fish", "Playing Round");
@@ -187,7 +197,7 @@ public class GoFish extends AppCompatActivity {
         // Player Hand
         for (final Card temp : human.getHand()) {
             final TextView tempText = new TextView(this);
-            //tempText.setTag(temp.getRank());
+            tempText.setTag(temp.getRank());
 
             // Rank
             tempText.setText(temp.getRankStr());
@@ -216,53 +226,20 @@ public class GoFish extends AppCompatActivity {
             tempText.setWidth(300);
             playerHand.addView(tempText, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
 
-            // Tap a card to "select" it. Changes selected card's trim to orange.
-            // When a card is selected, other cards cannot be selected. To select a different card, tap the selected
-            // card to de-select, then tap another card to select.
-            // Problem: When a different card with the same suit as the selected card is tapped, any card can start to be selected.
-            tempText.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    switch (temp.getSuit()) {
-                        case 0:
-                            if (!spadeSelected && !heartSelected && !clubSelected && !diamondSelected) {
-                                tempText.setBackgroundResource(R.drawable.card_spade_selected);
-                                spadeSelected = true;
-                            } else {
-                                tempText.setBackgroundResource(R.drawable.card_spade);
-                                spadeSelected = false;
-                            }
-                            break;
-                        case 1:
-                            if (!spadeSelected && !heartSelected && !clubSelected && !diamondSelected) {
-                                tempText.setBackgroundResource(R.drawable.card_heart_selected);
-                                heartSelected = true;
-                            } else {
-                                tempText.setBackgroundResource(R.drawable.card_heart);
-                                heartSelected = false;
-                            }
-                            break;
-                        case 2:
-                            if (!spadeSelected && !heartSelected && !clubSelected && !diamondSelected) {
-                                tempText.setBackgroundResource(R.drawable.card_club_selected);
-                                clubSelected = true;
-                            } else {
-                                tempText.setBackgroundResource(R.drawable.card_club);
-                                clubSelected = false;
-                            }
-                            break;
-                        case 3:
-                            if (!spadeSelected && !heartSelected && !clubSelected && !diamondSelected) {
-                                tempText.setBackgroundResource(R.drawable.card_diamond_selected);
-                                diamondSelected = true;
-                            } else {
-                                tempText.setBackgroundResource(R.drawable.card_diamond);
-                                diamondSelected = false;
-                            }
-                            break;
-                    }
-                }
-            });
+            // Show/Hide "Do you have any" buttons based on ranks in hand
+            if(temp.getRankStr().contains(btnAce.getTag().toString())) btnAce.setVisibility(View.VISIBLE);
+            if(temp.getRankStr().contains(btnTwo.getTag().toString())) btnTwo.setVisibility(View.VISIBLE);
+            if(temp.getRankStr().contains(btnThree.getTag().toString())) btnThree.setVisibility(View.VISIBLE);
+            if(temp.getRankStr().contains(btnFour.getTag().toString())) btnFour.setVisibility(View.VISIBLE);
+            if(temp.getRankStr().contains(btnFive.getTag().toString())) btnFive.setVisibility(View.VISIBLE);
+            if(temp.getRankStr().contains(btnSix.getTag().toString())) btnSix.setVisibility(View.VISIBLE);
+            if(temp.getRankStr().contains(btnSeven.getTag().toString())) btnSeven.setVisibility(View.VISIBLE);
+            if(temp.getRankStr().contains(btnEight.getTag().toString())) btnEight.setVisibility(View.VISIBLE);
+            if(temp.getRankStr().contains(btnNine.getTag().toString())) btnNine.setVisibility(View.VISIBLE);
+            if(temp.getRankStr().contains(btnTen.getTag().toString())) btnTen.setVisibility(View.VISIBLE);
+            if(temp.getRankStr().contains(btnJack.getTag().toString())) btnJack.setVisibility(View.VISIBLE);
+            if(temp.getRankStr().contains(btnQueen.getTag().toString())) btnQueen.setVisibility(View.VISIBLE);
+            if(temp.getRankStr().contains(btnKing.getTag().toString())) btnKing.setVisibility(View.VISIBLE);
         }
 
         // AI Hand
