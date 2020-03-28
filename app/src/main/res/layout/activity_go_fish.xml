@@ -9,6 +9,7 @@
     tools:context=".GoFish">
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -20,8 +21,6 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:ellipsize="marquee"
-            android:fadingEdgeLength="16dp"
-            android:requiresFadingEdge="horizontal"
             android:scrollbars="none">
 
             <LinearLayout
@@ -32,6 +31,16 @@
 
             </LinearLayout>
         </HorizontalScrollView>
+
+        <TextView
+            android:id="@+id/aiCardsInHand"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/dark_translucent"
+            android:gravity="start"
+            android:paddingLeft="16dp"
+            android:text="Cards in Hand"
+            android:textColor="@color/colorBackground" />
 
         <TextView
             android:id="@+id/aiScore"
@@ -56,7 +65,7 @@
         <LinearLayout
             android:id="@+id/rankSelector"
             android:layout_width="match_parent"
-            android:layout_height="96dp"
+            android:layout_height="128dp"
             android:gravity="center"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -89,92 +98,105 @@
                     android:orientation="vertical">
 
                     <Button
-                        android:id="@+id/button2"
+                        android:id="@+id/button_aces"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:onClick="handleRankSelectionFromPlayer"
                         android:text="@string/rank_1_question" />
 
                     <Button
-                        android:id="@+id/button3"
+                        android:id="@+id/button_twos"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:onClick="handleRankSelectionFromPlayer"
                         android:text="@string/rank_2_question" />
 
                     <Button
-                        android:id="@+id/button4"
+                        android:id="@+id/button_threes"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:onClick="handleRankSelectionFromPlayer"
                         android:text="@string/rank_3_question" />
 
                     <Button
-                        android:id="@+id/button5"
+                        android:id="@+id/button_fours"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:onClick="handleRankSelectionFromPlayer"
                         android:text="@string/rank_4_question" />
 
                     <Button
-                        android:id="@+id/button6"
+                        android:id="@+id/button_fives"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:onClick="handleRankSelectionFromPlayer"
                         android:text="@string/rank_5_question" />
 
                     <Button
-                        android:id="@+id/button7"
+                        android:id="@+id/button_sixes"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:onClick="handleRankSelectionFromPlayer"
                         android:text="@string/rank_6_question" />
 
                     <Button
-                        android:id="@+id/button8"
+                        android:id="@+id/button_sevens"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:onClick="handleRankSelectionFromPlayer"
                         android:text="@string/rank_7_question" />
 
                     <Button
-                        android:id="@+id/button9"
+                        android:id="@+id/button_eights"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:onClick="handleRankSelectionFromPlayer"
                         android:text="@string/rank_8_question" />
 
                     <Button
-                        android:id="@+id/button10"
+                        android:id="@+id/button_nines"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:onClick="handleRankSelectionFromPlayer"
                         android:text="@string/rank_9_question" />
 
                     <Button
-                        android:id="@+id/button11"
+                        android:id="@+id/button_tens"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:onClick="handleRankSelectionFromPlayer"
                         android:text="@string/rank_10_question" />
 
                     <Button
-                        android:id="@+id/button12"
+                        android:id="@+id/button_jacks"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:onClick="handleRankSelectionFromPlayer"
                         android:text="@string/rank_11_question" />
 
                     <Button
-                        android:id="@+id/button13"
+                        android:id="@+id/button_queens"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:onClick="handleRankSelectionFromPlayer"
                         android:text="@string/rank_12_question" />
 
                     <Button
-                        android:id="@+id/button14"
+                        android:id="@+id/button_kings"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:onClick="handleRankSelectionFromPlayer"
                         android:text="@string/rank_13_question" />
 
                 </LinearLayout>
@@ -242,19 +264,27 @@
             android:onClick="hideRankSelector"
             android:text="@string/completed_pairs" />
 
+        <TextView
+            android:id="@+id/playerCardsInHand"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/dark_translucent"
+            android:gravity="start"
+            android:paddingLeft="16dp"
+            android:text="Cards in Hand"
+            android:textColor="@color/colorBackground" />
+
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:ellipsize="marquee"
-            android:fadingEdgeLength="16dp"
-            android:requiresFadingEdge="horizontal"
             android:scrollbars="none">
 
             <LinearLayout
                 android:id="@+id/playerHand"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"/>
+                android:orientation="horizontal" />
         </HorizontalScrollView>
 
     </LinearLayout>

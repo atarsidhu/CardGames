@@ -1,7 +1,6 @@
 package com.example.cardgames;
 
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -26,6 +25,8 @@ public class GoFish extends AppCompatActivity {
     View completedPairs;
     TextView humanScore;
     TextView aiScore;
+    TextView humanCardsInHand;
+    TextView aiCardsInHand;
 
     // Utilities
     Random rand;
@@ -34,6 +35,8 @@ public class GoFish extends AppCompatActivity {
     Deck deck;
     Player human;
     Player AI;
+    boolean currentlyPlayerTurn;
+    boolean gameRunning = true;
 
     // Constants
     int STARTING_HAND_SIZE = 7;
@@ -43,9 +46,88 @@ public class GoFish extends AppCompatActivity {
     boolean clubSelected = false;
     boolean diamondSelected = false;
 
-    private void playGame() {
-        Log.i("Go Fish", "Playing Game");
+    private void playRound() {
+        Log.i("Go Fish", "Playing Round");
         updateUI();
+
+        // AI's Turn
+        if (!currentlyPlayerTurn) {
+            // rankSelector.setVisibility(View.GONE);
+            askPlayerForRank(AI, human, rand.nextInt(12) + 1);
+        }
+
+        // Player's Turn
+        // Just make the rank selector visible and wait for player input
+        else {
+            rankSelector.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void handleRankSelectionFromPlayer(View v) {
+        String id = getResources().getResourceEntryName(v.getId());
+        int rank;
+        switch (id) {
+            case "button_aces":
+                rank = 1;
+                break;
+            case "button_twos":
+                rank = 2;
+                break;
+            case "button_threes":
+                rank = 3;
+                break;
+            case "button_fours":
+                rank = 4;
+                break;
+            case "button_fives":
+                rank = 5;
+                break;
+            case "button_sixes":
+                rank = 6;
+                break;
+            case "button_sevens":
+                rank = 7;
+                break;
+            case "button_eights":
+                rank = 8;
+                break;
+            case "button_nines":
+                rank = 9;
+                break;
+            case "button_tens":
+                rank = 10;
+                break;
+            case "button_jacks":
+                rank = 11;
+                break;
+            case "button_queens":
+                rank = 12;
+                break;
+            case "button_kings":
+                rank = 13;
+                break;
+            default:
+                rank = 0;
+                break;
+        }
+        askPlayerForRank(human, AI, rank);
+    }
+
+    private void askPlayerForRank(Player asker, Player asked, int rank) {
+        String askerType = (asker.isHuman()) ? "human" : "nonhuman";
+        String askedType = (asked.isHuman()) ? "human" : "nonhuman";
+        Log.i("Go Fish", "A " + askerType + " has asked for " + rank + "s from a " + askedType);
+
+        ArrayList<Card> returnedCards = asked.getCardsWithRank(rank);
+        if (returnedCards.isEmpty()) {
+            currentlyPlayerTurn = !currentlyPlayerTurn;
+            asker.pickUpCard(deck.drawTop());
+            Log.i("Go Fish", "Go Fish!");
+        } else {
+            asker.addToHand(returnedCards);
+            Log.i("Go Fish", "Cards of rank " + rank + " found!");
+        }
+        playRound();
     }
 
     private void setupGame() {
@@ -60,15 +142,20 @@ public class GoFish extends AppCompatActivity {
         human = new Player(true);
         AI = new Player(false);
 
+        // Generates two starting hands
         for (int i = 0; i < STARTING_HAND_SIZE; i++) {
             hand1.add(deck.drawTop());
             hand2.add(deck.drawTop());
         }
 
+        // Randomly chooses either the AI or the Human as the dealer.
+        // Non-dealer receives the deck containing the first-drawn card and plays first.
         if (rand.nextInt(2) == 0) {
+            currentlyPlayerTurn = true;
             human.assignHand(hand1);
             AI.assignHand(hand2);
         } else {
+            currentlyPlayerTurn = false;
             human.assignHand(hand2);
             AI.assignHand(hand1);
         }
@@ -88,9 +175,15 @@ public class GoFish extends AppCompatActivity {
         completedPairs = findViewById(R.id.completedPairs);
         humanScore = findViewById(R.id.humanScore);
         aiScore = findViewById(R.id.aiScore);
+        humanCardsInHand = findViewById(R.id.playerCardsInHand);
+        aiCardsInHand = findViewById(R.id.aiCardsInHand);
     }
 
     private void updateUI() {
+
+        playerHand.removeAllViews();
+        aiHand.removeAllViews();
+
         // Player Hand
         for (final Card temp : human.getHand()) {
             final TextView tempText = new TextView(this);
@@ -185,13 +278,19 @@ public class GoFish extends AppCompatActivity {
         // Scores
         humanScore.setText(String.valueOf(human.getScore()));
         aiScore.setText(String.valueOf(AI.getScore()));
+
+        // Cards in Hand
+        humanCardsInHand.setText("Cards in hand: " + human.getHandSize());
+        aiCardsInHand.setText("Cards in hand: " + AI.getHandSize());
     }
 
     public void hideRankSelector(View v) {
         if (completedPairs.getVisibility() == View.GONE) {
             completedPairs.setVisibility(View.VISIBLE);
+            rankSelector.setVisibility(View.GONE);
         } else {
             completedPairs.setVisibility(View.GONE);
+            rankSelector.setVisibility(View.VISIBLE);
         }
     }
 
@@ -200,6 +299,6 @@ public class GoFish extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setupUI();
         setupGame();
-        playGame();
+        playRound();
     }
 }

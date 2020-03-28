@@ -72,6 +72,10 @@ public class Deck {
         return cards.size();
     }
 
+    public boolean isEmpty() {
+        return cards.isEmpty();
+    }
+
     public String toString() {
         return "Current Size: " + size();
     }

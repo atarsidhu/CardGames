@@ -7,4 +7,5 @@
     <color name="colorBackground">#FFFFFF</color>
     <color name="colorBackgroundVariant">#292929</color>
     <color name="fishOrange">#F18400</color>
+    <color name="dark_translucent">#80000000</color>
 </resources>

@@ -27,6 +27,11 @@ public class Card {
     public Card(int newRank, int newSuit) {
         rank = newRank;
         suit = newSuit;
+        if (newRank > 10) {
+            value = 10;
+        } else {
+            value = newRank;
+        }
         Log.println(Log.INFO, "Card.java", "Card Created as " + getValue());
     }
 
