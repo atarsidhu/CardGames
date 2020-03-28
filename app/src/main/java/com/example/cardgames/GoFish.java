@@ -245,13 +245,13 @@ public class GoFish extends AppCompatActivity {
 
             // Rank
             tempText.setText(temp.getRankStr());
-            if (temp.getRankStr().contains("11"))
+            if (temp.getRank() == 11)
                 tempText.setText("J");
-            else if (temp.getRankStr().contains("12"))
+            else if (temp.getRank() == 12)
                 tempText.setText("Q");
-            else if (temp.getRankStr().contains("13"))
+            else if (temp.getRank() == 13)
                 tempText.setText("K");
-            else if (temp.getRankStr().contains("14"))
+            else if (temp.getRank() == 1)
                 tempText.setText("A");
 
             tempText.setTextSize(30);

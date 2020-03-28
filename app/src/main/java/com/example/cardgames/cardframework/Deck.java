@@ -64,7 +64,7 @@ public class Deck {
      */
     private void generateStandard() {
         for (int i = 0; i < 4; i++) {
-            for (int j = 2; j < 15; j++) {
+            for (int j = 1; j < 14; j++) {
                 cards.add(new Card(j, i));
             }
         }
