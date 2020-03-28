@@ -59,6 +59,10 @@ public class GoFish extends AppCompatActivity {
     private void playRound() {
 
         if (deck.isEmpty() || AI.hasEmptyHand() || human.hasEmptyHand()) {
+            updateUI();
+            rankSelector.setVisibility(View.GONE);
+            Log.i("Go Fish", "Game Over!");
+            return;
             //endGame();
         }
 
@@ -67,7 +71,7 @@ public class GoFish extends AppCompatActivity {
 
         // AI's Turn
         if (!currentlyPlayerTurn) {
-            // rankSelector.setVisibility(View.GONE);
+            rankSelector.setVisibility(View.GONE);
             askPlayerForRank(AI, human, rand.nextInt(12) + 1);
         }
 
@@ -205,6 +209,10 @@ public class GoFish extends AppCompatActivity {
         Log.i("Go Fish", human.toString());
         Log.i("Go Fish", AI.toString());
         Log.i("Go Fish", deck.toString());
+
+        completedPairs.batchAdd(scorePoints(human));
+        completedPairs.batchAdd(scorePoints(AI));
+
     }
 
     private void setupUI() {
