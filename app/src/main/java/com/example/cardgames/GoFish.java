@@ -29,19 +29,19 @@ public class GoFish extends AppCompatActivity {
     TextView aiScore;
     TextView humanCardsInHand;
     TextView aiCardsInHand;
-    View btnAce = findViewById(R.id.button_aces);
-    View btnTwo = findViewById(R.id.button_twos);
-    View btnThree = findViewById(R.id.button_threes);
-    View btnFour = findViewById(R.id.button_fours);
-    View btnFive = findViewById(R.id.button_fives);
-    View btnSix = findViewById(R.id.button_sixes);
-    View btnSeven = findViewById(R.id.button_sevens);
-    View btnEight = findViewById(R.id.button_eights);
-    View btnNine = findViewById(R.id.button_nines);
-    View btnTen = findViewById(R.id.button_tens);
-    View btnJack = findViewById(R.id.button_jacks);
-    View btnQueen = findViewById(R.id.button_queens);
-    View btnKing = findViewById(R.id.button_kings);
+    View btnAce;
+    View btnTwo;
+    View btnThree;
+    View btnFour;
+    View btnFive;
+    View btnSix;
+    View btnSeven;
+    View btnEight;
+    View btnNine;
+    View btnTen;
+    View btnJack;
+    View btnQueen;
+    View btnKing;
 
     // Utilities
     Random rand;
@@ -218,6 +218,19 @@ public class GoFish extends AppCompatActivity {
         aiScore = findViewById(R.id.aiScore);
         humanCardsInHand = findViewById(R.id.playerCardsInHand);
         aiCardsInHand = findViewById(R.id.aiCardsInHand);
+        btnAce = findViewById(R.id.button_aces);
+        btnTwo = findViewById(R.id.button_twos);
+        btnThree = findViewById(R.id.button_threes);
+        btnFour = findViewById(R.id.button_fours);
+        btnFive = findViewById(R.id.button_fives);
+        btnSix = findViewById(R.id.button_sixes);
+        btnSeven = findViewById(R.id.button_sevens);
+        btnEight = findViewById(R.id.button_eights);
+        btnNine = findViewById(R.id.button_nines);
+        btnTen = findViewById(R.id.button_tens);
+        btnJack = findViewById(R.id.button_jacks);
+        btnQueen = findViewById(R.id.button_queens);
+        btnKing = findViewById(R.id.button_kings);
     }
 
     private void updateUI() {
