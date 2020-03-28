@@ -22,7 +22,7 @@ public class GoFish extends AppCompatActivity {
     LinearLayout playerHand;
     LinearLayout aiHand;
     LinearLayout rankSelector;
-    View completedPairs;
+    View uiCompletedPairs;
     TextView humanScore;
     TextView aiScore;
     TextView humanCardsInHand;
@@ -33,10 +33,10 @@ public class GoFish extends AppCompatActivity {
 
     // Game Properties
     Deck deck;
+    Deck completedPairs;
     Player human;
     Player AI;
     boolean currentlyPlayerTurn;
-    boolean gameRunning = true;
 
     // Constants
     int STARTING_HAND_SIZE = 7;
@@ -47,6 +47,11 @@ public class GoFish extends AppCompatActivity {
     boolean diamondSelected = false;
 
     private void playRound() {
+
+        if (deck.isEmpty() || AI.hasEmptyHand() || human.hasEmptyHand()) {
+            //endGame();
+        }
+
         Log.i("Go Fish", "Playing Round");
         updateUI();
 
@@ -127,14 +132,40 @@ public class GoFish extends AppCompatActivity {
             asker.addToHand(returnedCards);
             Log.i("Go Fish", "Cards of rank " + rank + " found!");
         }
+        completedPairs.batchAdd(scorePoints(asker));
         playRound();
+    }
+
+    private ArrayList<Card> scorePoints(Player p) {
+        ArrayList<Card> newCompletedPairs = new ArrayList<Card>();
+        ArrayList<Card> tempHand = p.getHand();
+        boolean changesMade = true;
+        while (changesMade) {
+            changesMade = false;
+            for (int i = 0; i < tempHand.size(); i++) {
+                for (int j = i + 1; j < tempHand.size(); j++) {
+                    if (tempHand.get(j).getRank() == tempHand.get(i).getRank()) {
+                        p.incrementScore(1);
+                        newCompletedPairs.add(tempHand.get(j));
+                        newCompletedPairs.add(tempHand.get(i));
+                        Log.i("Go Fish", "Removing " + tempHand.get(i).getStyleId() + " and " + tempHand.get(j).getStyleId());
+                        tempHand.remove(j);
+                        tempHand.remove(i);
+                        changesMade = true;
+                    }
+                }
+            }
+        }
+        p.assignHand(tempHand);
+        return newCompletedPairs;
     }
 
     private void setupGame() {
 
         rand = new Random();
 
-        deck = new Deck();
+        deck = new Deck(1);
+        completedPairs = new Deck();
 
         ArrayList<Card> hand1 = new ArrayList<Card>();
         ArrayList<Card> hand2 = new ArrayList<Card>();
@@ -172,7 +203,7 @@ public class GoFish extends AppCompatActivity {
         playerHand = findViewById(R.id.playerHand);
         aiHand = findViewById(R.id.aiHand);
         rankSelector = findViewById(R.id.rankSelector);
-        completedPairs = findViewById(R.id.completedPairs);
+        uiCompletedPairs = findViewById(R.id.completedPairs);
         humanScore = findViewById(R.id.humanScore);
         aiScore = findViewById(R.id.aiScore);
         humanCardsInHand = findViewById(R.id.playerCardsInHand);
@@ -285,11 +316,11 @@ public class GoFish extends AppCompatActivity {
     }
 
     public void hideRankSelector(View v) {
-        if (completedPairs.getVisibility() == View.GONE) {
-            completedPairs.setVisibility(View.VISIBLE);
+        if (uiCompletedPairs.getVisibility() == View.GONE) {
+            uiCompletedPairs.setVisibility(View.VISIBLE);
             rankSelector.setVisibility(View.GONE);
         } else {
-            completedPairs.setVisibility(View.GONE);
+            uiCompletedPairs.setVisibility(View.GONE);
             rankSelector.setVisibility(View.VISIBLE);
         }
     }

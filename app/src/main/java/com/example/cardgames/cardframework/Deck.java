@@ -8,12 +8,10 @@ public class Deck {
     ArrayList<Card> cards;
 
     /**
-     * Creates a deck which contains a single deck's worth of cards.
+     * Creates an empty deck.
      */
     public Deck() {
         cards = new ArrayList<Card>();
-        generateStandard();
-        shuffleDeck();
     }
 
     /**
@@ -27,6 +25,10 @@ public class Deck {
             generateStandard();
         }
         shuffleDeck();
+    }
+
+    public void batchAdd(ArrayList<Card> newCards) {
+        cards.addAll(newCards);
     }
 
     /**

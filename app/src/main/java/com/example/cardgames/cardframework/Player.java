@@ -15,7 +15,7 @@ public class Player {
 
     public ArrayList<Card> getCardsWithRank(int rank) {
         ArrayList<Card> temp = new ArrayList<Card>();
-        for (int i = hand.size()-1; i >= 0; i--) {
+        for (int i = hand.size() - 1; i >= 0; i--) {
             if (hand.get(i).getRank() == rank) {
                 temp.add(hand.get(i));
                 hand.remove(i);
@@ -50,6 +50,10 @@ public class Player {
 
     public int getHandSize() {
         return hand.size();
+    }
+
+    public boolean hasEmptyHand() {
+        return hand.isEmpty();
     }
 
     public boolean isHuman() {
