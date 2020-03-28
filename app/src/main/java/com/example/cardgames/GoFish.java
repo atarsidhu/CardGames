@@ -271,19 +271,22 @@ public class GoFish extends AppCompatActivity {
             playerHand.addView(tempText, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
 
             // Show/Hide "Do you have any" buttons based on ranks in hand
-            if(temp.getRankStr().contains(btnAce.getTag().toString())) btnAce.setVisibility(View.VISIBLE);
-            if(temp.getRankStr().contains(btnTwo.getTag().toString())) btnTwo.setVisibility(View.VISIBLE);
-            if(temp.getRankStr().contains(btnThree.getTag().toString())) btnThree.setVisibility(View.VISIBLE);
-            if(temp.getRankStr().contains(btnFour.getTag().toString())) btnFour.setVisibility(View.VISIBLE);
-            if(temp.getRankStr().contains(btnFive.getTag().toString())) btnFive.setVisibility(View.VISIBLE);
-            if(temp.getRankStr().contains(btnSix.getTag().toString())) btnSix.setVisibility(View.VISIBLE);
-            if(temp.getRankStr().contains(btnSeven.getTag().toString())) btnSeven.setVisibility(View.VISIBLE);
-            if(temp.getRankStr().contains(btnEight.getTag().toString())) btnEight.setVisibility(View.VISIBLE);
-            if(temp.getRankStr().contains(btnNine.getTag().toString())) btnNine.setVisibility(View.VISIBLE);
-            if(temp.getRankStr().contains(btnTen.getTag().toString())) btnTen.setVisibility(View.VISIBLE);
-            if(temp.getRankStr().contains(btnJack.getTag().toString())) btnJack.setVisibility(View.VISIBLE);
-            if(temp.getRankStr().contains(btnQueen.getTag().toString())) btnQueen.setVisibility(View.VISIBLE);
-            if(temp.getRankStr().contains(btnKing.getTag().toString())) btnKing.setVisibility(View.VISIBLE);
+            //if(temp.getRankStr().contains(btnAce.getTag().toString())) btnAce.setVisibility(View.VISIBLE);
+            if(temp.getRank() == Integer.parseInt(btnAce.getTag().toString())) btnAce.setVisibility(View.VISIBLE);
+            if(temp.getRank() == Integer.parseInt(btnTwo.getTag().toString())) btnTwo.setVisibility(View.VISIBLE);
+            if(temp.getRank() == Integer.parseInt(btnThree.getTag().toString())) btnThree.setVisibility(View.VISIBLE);
+            if(temp.getRank() == Integer.parseInt(btnFour.getTag().toString())) btnFour.setVisibility(View.VISIBLE);
+            if(temp.getRank() == Integer.parseInt(btnFive.getTag().toString())) btnFive.setVisibility(View.VISIBLE);
+            if(temp.getRank() == Integer.parseInt(btnSix.getTag().toString())) btnSix.setVisibility(View.VISIBLE);
+            if(temp.getRank() == Integer.parseInt(btnSeven.getTag().toString())) btnSeven.setVisibility(View.VISIBLE);
+            if(temp.getRank() == Integer.parseInt(btnEight.getTag().toString())) btnEight.setVisibility(View.VISIBLE);
+            if(temp.getRank() == Integer.parseInt(btnNine.getTag().toString())) btnNine.setVisibility(View.VISIBLE);
+            if(temp.getRank() == Integer.parseInt(btnTen.getTag().toString())) btnTen.setVisibility(View.VISIBLE);
+            if(temp.getRank() == Integer.parseInt(btnJack.getTag().toString())) btnJack.setVisibility(View.VISIBLE);
+            if(temp.getRank() == Integer.parseInt(btnQueen.getTag().toString())) btnQueen.setVisibility(View.VISIBLE);
+            if(temp.getRank() == Integer.parseInt(btnKing.getTag().toString())) btnKing.setVisibility(View.VISIBLE);
+
+
         }
 
         // AI Hand
