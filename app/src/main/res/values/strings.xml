@@ -3,7 +3,7 @@
 
     <string name="app_name">Card Game Hub</string>
     <string name="app_icon_name">CGH</string>
-    <string name="go_fish_description">Go Fish</string>
+    <string name="go_fish_description">Go Fish!</string>
     <string name="speed_description">Speed</string>
     <string name="welcome">Welcome to \n Card Game Hub!</string>
     <string name="choose_game">Choose a game to play!</string>

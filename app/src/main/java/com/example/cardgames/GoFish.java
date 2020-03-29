@@ -1,6 +1,7 @@
 package com.example.cardgames;
 
 import android.content.res.Resources;
+import android.os.Handler;
 import android.view.View;
 
 import android.widget.Button;
@@ -29,6 +30,8 @@ public class GoFish extends AppCompatActivity {
     TextView aiScore;
     TextView humanCardsInHand;
     TextView aiCardsInHand;
+    TextView goFish;
+    TextView textViewThinking;
     View btnAce;
     View btnTwo;
     View btnThree;
@@ -56,7 +59,7 @@ public class GoFish extends AppCompatActivity {
     // Constants
     int STARTING_HAND_SIZE = 7;
 
-    private void playRound() {
+    private void playRound() throws InterruptedException {
 
         if (deck.isEmpty() || AI.hasEmptyHand() || human.hasEmptyHand()) {
             //endGame();
@@ -68,6 +71,16 @@ public class GoFish extends AppCompatActivity {
         // AI's Turn
         if (!currentlyPlayerTurn) {
             // rankSelector.setVisibility(View.GONE);
+
+            textViewThinking.setVisibility(View.VISIBLE);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    textViewThinking.setVisibility(View.GONE);
+                }
+            }, 2000);
+            //Thread.sleep(1000);
+
             askPlayerForRank(AI, human, rand.nextInt(12) + 1);
         }
 
@@ -78,7 +91,7 @@ public class GoFish extends AppCompatActivity {
         }
     }
 
-    public void handleRankSelectionFromPlayer(View v) {
+    public void handleRankSelectionFromPlayer(View v) throws InterruptedException {
         String id = getResources().getResourceEntryName(v.getId());
         int rank;
         switch (id) {
@@ -128,7 +141,7 @@ public class GoFish extends AppCompatActivity {
         askPlayerForRank(human, AI, rank);
     }
 
-    private void askPlayerForRank(Player asker, Player asked, int rank) {
+    private void askPlayerForRank(Player asker, Player asked, int rank) throws InterruptedException {
         String askerType = (asker.isHuman()) ? "human" : "nonhuman";
         String askedType = (asked.isHuman()) ? "human" : "nonhuman";
         Log.i("Go Fish", "A " + askerType + " has asked for " + rank + "s from a " + askedType);
@@ -137,9 +150,20 @@ public class GoFish extends AppCompatActivity {
         if (returnedCards.isEmpty()) {
             currentlyPlayerTurn = !currentlyPlayerTurn;
             asker.pickUpCard(deck.drawTop());
+
+            //Go Fish popup
+            goFish.setVisibility(View.VISIBLE);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    goFish.setVisibility(View.GONE);
+                }
+            }, 1000);
+
             Log.i("Go Fish", "Go Fish!");
         } else {
             asker.addToHand(returnedCards);
+            hideButtons();
             Log.i("Go Fish", "Cards of rank " + rank + " found!");
         }
         completedPairs.batchAdd(scorePoints(asker));
@@ -218,6 +242,8 @@ public class GoFish extends AppCompatActivity {
         aiScore = findViewById(R.id.aiScore);
         humanCardsInHand = findViewById(R.id.playerCardsInHand);
         aiCardsInHand = findViewById(R.id.aiCardsInHand);
+        goFish = findViewById(R.id.textViewGoFish);
+        textViewThinking = findViewById(R.id.textViewThinking);
         btnAce = findViewById(R.id.button_aces);
         btnTwo = findViewById(R.id.button_twos);
         btnThree = findViewById(R.id.button_threes);
@@ -270,23 +296,7 @@ public class GoFish extends AppCompatActivity {
             tempText.setWidth(300);
             playerHand.addView(tempText, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
 
-            // Show/Hide "Do you have any" buttons based on ranks in hand
-            //if(temp.getRankStr().contains(btnAce.getTag().toString())) btnAce.setVisibility(View.VISIBLE);
-            if(temp.getRank() == Integer.parseInt(btnAce.getTag().toString())) btnAce.setVisibility(View.VISIBLE);
-            if(temp.getRank() == Integer.parseInt(btnTwo.getTag().toString())) btnTwo.setVisibility(View.VISIBLE);
-            if(temp.getRank() == Integer.parseInt(btnThree.getTag().toString())) btnThree.setVisibility(View.VISIBLE);
-            if(temp.getRank() == Integer.parseInt(btnFour.getTag().toString())) btnFour.setVisibility(View.VISIBLE);
-            if(temp.getRank() == Integer.parseInt(btnFive.getTag().toString())) btnFive.setVisibility(View.VISIBLE);
-            if(temp.getRank() == Integer.parseInt(btnSix.getTag().toString())) btnSix.setVisibility(View.VISIBLE);
-            if(temp.getRank() == Integer.parseInt(btnSeven.getTag().toString())) btnSeven.setVisibility(View.VISIBLE);
-            if(temp.getRank() == Integer.parseInt(btnEight.getTag().toString())) btnEight.setVisibility(View.VISIBLE);
-            if(temp.getRank() == Integer.parseInt(btnNine.getTag().toString())) btnNine.setVisibility(View.VISIBLE);
-            if(temp.getRank() == Integer.parseInt(btnTen.getTag().toString())) btnTen.setVisibility(View.VISIBLE);
-            if(temp.getRank() == Integer.parseInt(btnJack.getTag().toString())) btnJack.setVisibility(View.VISIBLE);
-            if(temp.getRank() == Integer.parseInt(btnQueen.getTag().toString())) btnQueen.setVisibility(View.VISIBLE);
-            if(temp.getRank() == Integer.parseInt(btnKing.getTag().toString())) btnKing.setVisibility(View.VISIBLE);
-
-
+            hideButtons();
         }
 
         // AI Hand
@@ -318,11 +328,34 @@ public class GoFish extends AppCompatActivity {
         }
     }
 
+    public void hideButtons(){
+        // Show/Hide "Do you have any" buttons based on ranks in hand
+        for(Card temp : human.getHand()){
+            if(temp.getRank() == Integer.parseInt(btnAce.getTag().toString())) btnAce.setVisibility(View.VISIBLE);
+            if(temp.getRank() == Integer.parseInt(btnTwo.getTag().toString())) btnTwo.setVisibility(View.VISIBLE);
+            if(temp.getRank() == Integer.parseInt(btnThree.getTag().toString())) btnThree.setVisibility(View.VISIBLE);
+            if(temp.getRank() == Integer.parseInt(btnFour.getTag().toString())) btnFour.setVisibility(View.VISIBLE);
+            if(temp.getRank() == Integer.parseInt(btnFive.getTag().toString())) btnFive.setVisibility(View.VISIBLE);
+            if(temp.getRank() == Integer.parseInt(btnSix.getTag().toString())) btnSix.setVisibility(View.VISIBLE);
+            if(temp.getRank() == Integer.parseInt(btnSeven.getTag().toString())) btnSeven.setVisibility(View.VISIBLE);
+            if(temp.getRank() == Integer.parseInt(btnEight.getTag().toString())) btnEight.setVisibility(View.VISIBLE);
+            if(temp.getRank() == Integer.parseInt(btnNine.getTag().toString())) btnNine.setVisibility(View.VISIBLE);
+            if(temp.getRank() == Integer.parseInt(btnTen.getTag().toString())) btnTen.setVisibility(View.VISIBLE);
+            if(temp.getRank() == Integer.parseInt(btnJack.getTag().toString())) btnJack.setVisibility(View.VISIBLE);
+            if(temp.getRank() == Integer.parseInt(btnQueen.getTag().toString())) btnQueen.setVisibility(View.VISIBLE);
+            if(temp.getRank() == Integer.parseInt(btnKing.getTag().toString())) btnKing.setVisibility(View.VISIBLE);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupUI();
         setupGame();
-        playRound();
+        try {
+            playRound();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
