@@ -87,6 +87,7 @@ public class GoFish extends AppCompatActivity {
             //Thread.sleep(1000);
 
             askPlayerForRank(AI, human, rand.nextInt(12) + 1);
+            hideButtons();
         }
 
         // Player's Turn
@@ -151,6 +152,8 @@ public class GoFish extends AppCompatActivity {
         String askedType = (asked.isHuman()) ? "human" : "nonhuman";
         Log.i("Go Fish", "A " + askerType + " has asked for " + rank + "s from a " + askedType);
 
+        hideButtons();
+
         ArrayList<Card> returnedCards = asked.getCardsWithRank(rank);
         if (returnedCards.isEmpty()) {
             currentlyPlayerTurn = !currentlyPlayerTurn;
@@ -168,11 +171,11 @@ public class GoFish extends AppCompatActivity {
             Log.i("Go Fish", "Go Fish!");
         } else {
             asker.addToHand(returnedCards);
-            hideButtons();
             Log.i("Go Fish", "Cards of rank " + rank + " found!");
         }
         completedPairs.batchAdd(scorePoints(asker));
         playRound();
+        hideButtons();
     }
 
     private ArrayList<Card> scorePoints(Player p) {
@@ -196,6 +199,7 @@ public class GoFish extends AppCompatActivity {
             }
         }
         p.assignHand(tempHand);
+        hideButtons();
         return newCompletedPairs;
     }
 
