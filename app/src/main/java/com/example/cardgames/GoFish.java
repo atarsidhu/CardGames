@@ -87,7 +87,7 @@ public class GoFish extends AppCompatActivity {
             //Thread.sleep(1000);
 
             askPlayerForRank(AI, human, rand.nextInt(12) + 1);
-            hideButtons();
+            
         }
 
         // Player's Turn
@@ -152,7 +152,7 @@ public class GoFish extends AppCompatActivity {
         String askedType = (asked.isHuman()) ? "human" : "nonhuman";
         Log.i("Go Fish", "A " + askerType + " has asked for " + rank + "s from a " + askedType);
 
-        hideButtons();
+        
 
         ArrayList<Card> returnedCards = asked.getCardsWithRank(rank);
         if (returnedCards.isEmpty()) {
@@ -175,7 +175,7 @@ public class GoFish extends AppCompatActivity {
         }
         completedPairs.batchAdd(scorePoints(asker));
         playRound();
-        hideButtons();
+        
     }
 
     private ArrayList<Card> scorePoints(Player p) {
@@ -199,7 +199,7 @@ public class GoFish extends AppCompatActivity {
             }
         }
         p.assignHand(tempHand);
-        hideButtons();
+        displayButtons();
         return newCompletedPairs;
     }
 
@@ -309,7 +309,7 @@ public class GoFish extends AppCompatActivity {
             tempText.setWidth(300);
             playerHand.addView(tempText, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
 
-            hideButtons();
+            
         }
 
         // AI Hand
@@ -341,8 +341,21 @@ public class GoFish extends AppCompatActivity {
         }
     }
 
-    public void hideButtons(){
+    public void displayButtons(){
         // Show/Hide "Do you have any" buttons based on ranks in hand
+        btnAce.setVisibility(View.GONE);
+        btnTwo.setVisibility(View.GONE);
+        btnThree.setVisibility(View.GONE);
+        btnFour.setVisibility(View.GONE);
+        btnFive.setVisibility(View.GONE);
+        btnSix.setVisibility(View.GONE);
+        btnSeven.setVisibility(View.GONE);
+        btnEight.setVisibility(View.GONE);
+        btnNine.setVisibility(View.GONE);
+        btnTen.setVisibility(View.GONE);
+        btnJack.setVisibility(View.GONE);
+        btnQueen.setVisibility(View.GONE);
+        btnKing.setVisibility(View.GONE);
         for(Card temp : human.getHand()){
             if(temp.getRank() == Integer.parseInt(btnAce.getTag().toString())) btnAce.setVisibility(View.VISIBLE);
             if(temp.getRank() == Integer.parseInt(btnTwo.getTag().toString())) btnTwo.setVisibility(View.VISIBLE);
