@@ -1,10 +1,8 @@
 package com.example.cardgames;
 
-import android.content.res.Resources;
 import android.os.Handler;
 import android.view.View;
 
-import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -30,7 +28,7 @@ public class GoFish extends AppCompatActivity {
     TextView aiScore;
     TextView humanCardsInHand;
     TextView aiCardsInHand;
-    TextView goFish;
+    TextView centreText;
     TextView textViewThinking;
     View btnAce;
     View btnTwo;
@@ -55,6 +53,7 @@ public class GoFish extends AppCompatActivity {
     Player human;
     Player AI;
     boolean currentlyPlayerTurn;
+    boolean easyDifficulty = true;
 
     // Constants
     int STARTING_HAND_SIZE = 7;
@@ -64,6 +63,9 @@ public class GoFish extends AppCompatActivity {
         if (deck.isEmpty() || AI.hasEmptyHand() || human.hasEmptyHand()) {
             updateUI();
             rankSelector.setVisibility(View.GONE);
+            String gameOverMessage = (AI.getScore() > human.getScore()) ? "Game Over!\nYou Lose." : "Game Over!\nYou Won!";
+            centreText.setText(gameOverMessage);
+            centreText.setVisibility(View.VISIBLE);
             Log.i("Go Fish", "Game Over!");
             return;
             //endGame();
@@ -86,8 +88,39 @@ public class GoFish extends AppCompatActivity {
             }, 2000);
             //Thread.sleep(1000);
 
-            askPlayerForRank(AI, human, rand.nextInt(12) + 1);
-            
+            if (easyDifficulty) {
+                askPlayerForRank(AI, human, rand.nextInt(12) + 1);
+            } else {
+                ArrayList<Integer> notCompleted = new ArrayList<Integer>();
+                ArrayList<Integer> partiallyCompleted = new ArrayList<>();
+
+                // Generates lists of integers to guess from, based on how many completed pairs of a certain rank
+                // have been made so far.
+                for (int i = 1; i < 14; i++) {
+                    int countOfRank = 0;
+                    for (Card temp : deck.getAllCards()) {
+                        if (temp.getRank() == i) {
+                            countOfRank++;
+                        }
+                    }
+                    if (countOfRank == 2) {
+                        partiallyCompleted.add(i);
+                    } else {
+                        notCompleted.add(i);
+                    }
+                }
+
+                // Now, make a guess based on the generated lists
+                if (!notCompleted.isEmpty()) {
+                    askPlayerForRank(AI, human, notCompleted.get(rand.nextInt(notCompleted.size())));
+                } else if (!partiallyCompleted.isEmpty()) {
+                    askPlayerForRank(AI, human, partiallyCompleted.get(rand.nextInt(partiallyCompleted.size())));
+                } else {
+                    askPlayerForRank(AI, human, AI.getHand().get(rand.nextInt(AI.getHandSize())).getRank());
+                }
+
+            }
+
         }
 
         // Player's Turn
@@ -152,19 +185,20 @@ public class GoFish extends AppCompatActivity {
         String askedType = (asked.isHuman()) ? "human" : "nonhuman";
         Log.i("Go Fish", "A " + askerType + " has asked for " + rank + "s from a " + askedType);
 
-        
 
         ArrayList<Card> returnedCards = asked.getCardsWithRank(rank);
         if (returnedCards.isEmpty()) {
             currentlyPlayerTurn = !currentlyPlayerTurn;
-            asker.pickUpCard(deck.drawTop());
+            Card cardToPickUp = deck.drawTop();
+            Log.i("Go Fish", "Picking up " + cardToPickUp.getStyleId());
+            asker.pickUpCard(cardToPickUp);
 
             //Go Fish popup
-            goFish.setVisibility(View.VISIBLE);
+            centreText.setVisibility(View.VISIBLE);
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    goFish.setVisibility(View.GONE);
+                    centreText.setVisibility(View.GONE);
                 }
             }, 1000);
 
@@ -175,7 +209,7 @@ public class GoFish extends AppCompatActivity {
         }
         completedPairs.batchAdd(scorePoints(asker));
         playRound();
-        
+
     }
 
     private ArrayList<Card> scorePoints(Player p) {
@@ -209,6 +243,9 @@ public class GoFish extends AppCompatActivity {
 
         deck = new Deck(1);
         completedPairs = new Deck();
+
+        easyDifficulty = getSharedPreferences("sharedPrefs", MODE_PRIVATE).getBoolean("rbNormal", true);
+        Log.i("Go Fish", (easyDifficulty) ? "Easy Mode" : "Normal Mode");
 
         ArrayList<Card> hand1 = new ArrayList<Card>();
         ArrayList<Card> hand2 = new ArrayList<Card>();
@@ -255,7 +292,7 @@ public class GoFish extends AppCompatActivity {
         aiScore = findViewById(R.id.aiScore);
         humanCardsInHand = findViewById(R.id.playerCardsInHand);
         aiCardsInHand = findViewById(R.id.aiCardsInHand);
-        goFish = findViewById(R.id.textViewGoFish);
+        centreText = findViewById(R.id.centreText);
         textViewThinking = findViewById(R.id.textViewThinking);
         btnAce = findViewById(R.id.button_aces);
         btnTwo = findViewById(R.id.button_twos);
@@ -309,7 +346,7 @@ public class GoFish extends AppCompatActivity {
             tempText.setWidth(300);
             playerHand.addView(tempText, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
 
-            
+
         }
 
         // AI Hand
@@ -341,7 +378,7 @@ public class GoFish extends AppCompatActivity {
         }
     }
 
-    public void displayButtons(){
+    public void displayButtons() {
         // Show/Hide "Do you have any" buttons based on ranks in hand
         btnAce.setVisibility(View.GONE);
         btnTwo.setVisibility(View.GONE);
@@ -356,20 +393,33 @@ public class GoFish extends AppCompatActivity {
         btnJack.setVisibility(View.GONE);
         btnQueen.setVisibility(View.GONE);
         btnKing.setVisibility(View.GONE);
-        for(Card temp : human.getHand()){
-            if(temp.getRank() == Integer.parseInt(btnAce.getTag().toString())) btnAce.setVisibility(View.VISIBLE);
-            if(temp.getRank() == Integer.parseInt(btnTwo.getTag().toString())) btnTwo.setVisibility(View.VISIBLE);
-            if(temp.getRank() == Integer.parseInt(btnThree.getTag().toString())) btnThree.setVisibility(View.VISIBLE);
-            if(temp.getRank() == Integer.parseInt(btnFour.getTag().toString())) btnFour.setVisibility(View.VISIBLE);
-            if(temp.getRank() == Integer.parseInt(btnFive.getTag().toString())) btnFive.setVisibility(View.VISIBLE);
-            if(temp.getRank() == Integer.parseInt(btnSix.getTag().toString())) btnSix.setVisibility(View.VISIBLE);
-            if(temp.getRank() == Integer.parseInt(btnSeven.getTag().toString())) btnSeven.setVisibility(View.VISIBLE);
-            if(temp.getRank() == Integer.parseInt(btnEight.getTag().toString())) btnEight.setVisibility(View.VISIBLE);
-            if(temp.getRank() == Integer.parseInt(btnNine.getTag().toString())) btnNine.setVisibility(View.VISIBLE);
-            if(temp.getRank() == Integer.parseInt(btnTen.getTag().toString())) btnTen.setVisibility(View.VISIBLE);
-            if(temp.getRank() == Integer.parseInt(btnJack.getTag().toString())) btnJack.setVisibility(View.VISIBLE);
-            if(temp.getRank() == Integer.parseInt(btnQueen.getTag().toString())) btnQueen.setVisibility(View.VISIBLE);
-            if(temp.getRank() == Integer.parseInt(btnKing.getTag().toString())) btnKing.setVisibility(View.VISIBLE);
+        for (Card temp : human.getHand()) {
+            if (temp.getRank() == Integer.parseInt(btnAce.getTag().toString()))
+                btnAce.setVisibility(View.VISIBLE);
+            if (temp.getRank() == Integer.parseInt(btnTwo.getTag().toString()))
+                btnTwo.setVisibility(View.VISIBLE);
+            if (temp.getRank() == Integer.parseInt(btnThree.getTag().toString()))
+                btnThree.setVisibility(View.VISIBLE);
+            if (temp.getRank() == Integer.parseInt(btnFour.getTag().toString()))
+                btnFour.setVisibility(View.VISIBLE);
+            if (temp.getRank() == Integer.parseInt(btnFive.getTag().toString()))
+                btnFive.setVisibility(View.VISIBLE);
+            if (temp.getRank() == Integer.parseInt(btnSix.getTag().toString()))
+                btnSix.setVisibility(View.VISIBLE);
+            if (temp.getRank() == Integer.parseInt(btnSeven.getTag().toString()))
+                btnSeven.setVisibility(View.VISIBLE);
+            if (temp.getRank() == Integer.parseInt(btnEight.getTag().toString()))
+                btnEight.setVisibility(View.VISIBLE);
+            if (temp.getRank() == Integer.parseInt(btnNine.getTag().toString()))
+                btnNine.setVisibility(View.VISIBLE);
+            if (temp.getRank() == Integer.parseInt(btnTen.getTag().toString()))
+                btnTen.setVisibility(View.VISIBLE);
+            if (temp.getRank() == Integer.parseInt(btnJack.getTag().toString()))
+                btnJack.setVisibility(View.VISIBLE);
+            if (temp.getRank() == Integer.parseInt(btnQueen.getTag().toString()))
+                btnQueen.setVisibility(View.VISIBLE);
+            if (temp.getRank() == Integer.parseInt(btnKing.getTag().toString()))
+                btnKing.setVisibility(View.VISIBLE);
         }
     }
 

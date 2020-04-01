@@ -78,6 +78,10 @@ public class Deck {
         return cards.isEmpty();
     }
 
+    public ArrayList<Card> getAllCards() {
+        return cards;
+    }
+
     public String toString() {
         return "Current Size: " + size();
     }
