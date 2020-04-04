@@ -54,8 +54,13 @@
     <string name="rank_13_question">Kings?</string>
     <string name="rank_14_question">Aces?</string>
 
+    <string name="cards_in_hand">Cards in Hand: %d</string>
     <string name="completed_pairs">Completed Pairs</string>
     <string name="do_you_have">Do you have any</string>
+    <string name="thinking">I\'m Thinking&#8230;</string>
+
+    <string name="you_won">Game Over!\nYou Win!</string>
+    <string name="you_lost">Game Over!\nYou Lose.</string>
 
 
     <!-- ____________________________________ HOW TO PLAY STRINGS _________________________________________ -->

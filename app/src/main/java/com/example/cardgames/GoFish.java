@@ -19,46 +19,51 @@ import java.util.ArrayList;
 
 public class GoFish extends AppCompatActivity {
     // UI Components
-    ConstraintLayout mainLayout;
-    LinearLayout playerHand;
-    LinearLayout aiHand;
-    LinearLayout rankSelector;
-    View uiCompletedPairs;
-    TextView humanScore;
-    TextView aiScore;
-    TextView humanCardsInHand;
-    TextView aiCardsInHand;
-    TextView centreText;
-    TextView textViewThinking;
-    View btnAce;
-    View btnTwo;
-    View btnThree;
-    View btnFour;
-    View btnFive;
-    View btnSix;
-    View btnSeven;
-    View btnEight;
-    View btnNine;
-    View btnTen;
-    View btnJack;
-    View btnQueen;
-    View btnKing;
+    private ConstraintLayout mainLayout;
+    private LinearLayout playerHand;
+    private LinearLayout aiHand;
+    private LinearLayout rankSelector;
+    private View uiCompletedPairs;
+    private TextView humanScore;
+    private TextView aiScore;
+    private TextView humanCardsInHand;
+    private TextView aiCardsInHand;
+    private TextView centreText;
+    private TextView textViewThinking;
+    private View btnAce;
+    private View btnTwo;
+    private View btnThree;
+    private View btnFour;
+    private View btnFive;
+    private View btnSix;
+    private View btnSeven;
+    private View btnEight;
+    private View btnNine;
+    private View btnTen;
+    private View btnJack;
+    private View btnQueen;
+    private View btnKing;
 
     // Utilities
-    Random rand;
+    private Random rand;
 
     // Game Properties
-    Deck deck;
-    Deck completedPairs;
-    Player human;
-    Player AI;
-    boolean currentlyPlayerTurn;
-    boolean easyDifficulty = true;
+    private Deck deck;
+    private Deck completedPairs;
+    private Player human;
+    private Player AI;
+    private boolean currentlyPlayerTurn;
+    private boolean lockPlayer = true;
+    private boolean easyDifficulty = true;
 
     // Constants
-    int STARTING_HAND_SIZE = 7;
+    private int STARTING_HAND_SIZE = 7;
 
     private void playRound() throws InterruptedException {
+
+        Log.i("Go Fish", "Playing Round");
+        Log.i("Go Fish", human.toString());
+        Log.i("Go Fish", AI.toString());
 
         if (deck.isEmpty() || AI.hasEmptyHand() || human.hasEmptyHand()) {
             updateUI();
@@ -71,32 +76,34 @@ public class GoFish extends AppCompatActivity {
             //endGame();
         }
 
-        Log.i("Go Fish", "Playing Round");
-        updateUI();
-
         // AI's Turn
         if (!currentlyPlayerTurn) {
-            rankSelector.setVisibility(View.GONE);
-            // rankSelector.setVisibility(View.GONE);
 
+            lockPlayer = true;
+
+            // I'm Thinking...
             textViewThinking.setVisibility(View.VISIBLE);
+            rankSelector.setVisibility(View.GONE);
+            // askPlayerForRank(AI, human, rand.nextInt(12) + 1);
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    updateUI();
                     textViewThinking.setVisibility(View.GONE);
+                    rankSelector.setVisibility(View.VISIBLE);
                 }
             }, 2000);
-            //Thread.sleep(1000);
 
             if (easyDifficulty) {
                 askPlayerForRank(AI, human, rand.nextInt(12) + 1);
             } else {
-                ArrayList<Integer> notCompleted = new ArrayList<Integer>();
+                ArrayList<Integer> notCompleted = new ArrayList<>();
                 ArrayList<Integer> partiallyCompleted = new ArrayList<>();
 
                 // Generates lists of integers to guess from, based on how many completed pairs of a certain rank
                 // have been made so far.
                 for (int i = 1; i < 14; i++) {
+                    if (!AI.hasCardsWithRank(i)) continue;
                     int countOfRank = 0;
                     for (Card temp : deck.getAllCards()) {
                         if (temp.getRank() == i) {
@@ -126,11 +133,14 @@ public class GoFish extends AppCompatActivity {
         // Player's Turn
         // Just make the rank selector visible and wait for player input
         else {
-            rankSelector.setVisibility(View.VISIBLE);
+            lockPlayer = false;
+            updateUI();
+            // rankSelector.setVisibility(View.VISIBLE);
         }
     }
 
     public void handleRankSelectionFromPlayer(View v) throws InterruptedException {
+        if (lockPlayer) return;
         String id = getResources().getResourceEntryName(v.getId());
         int rank;
         switch (id) {
@@ -190,30 +200,19 @@ public class GoFish extends AppCompatActivity {
         if (returnedCards.isEmpty()) {
             currentlyPlayerTurn = !currentlyPlayerTurn;
             Card cardToPickUp = deck.drawTop();
-            Log.i("Go Fish", "Picking up " + cardToPickUp.getStyleId());
-            asker.pickUpCard(cardToPickUp);
-
-            //Go Fish popup
-            centreText.setVisibility(View.VISIBLE);
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    centreText.setVisibility(View.GONE);
-                }
-            }, 1000);
-
             Log.i("Go Fish", "Go Fish!");
+            Log.i("Go Fish", ((asker.isHuman()) ? "Human " : "Nonhuman ") + "Picking up " + cardToPickUp.getStyleId());
+            asker.pickUpCard(cardToPickUp);
         } else {
             asker.addToHand(returnedCards);
             Log.i("Go Fish", "Cards of rank " + rank + " found!");
         }
         completedPairs.batchAdd(scorePoints(asker));
         playRound();
-
     }
 
     private ArrayList<Card> scorePoints(Player p) {
-        ArrayList<Card> newCompletedPairs = new ArrayList<Card>();
+        ArrayList<Card> newCompletedPairs = new ArrayList<>();
         ArrayList<Card> tempHand = p.getHand();
         boolean changesMade = true;
         while (changesMade) {
@@ -224,12 +223,14 @@ public class GoFish extends AppCompatActivity {
                         p.incrementScore(1);
                         newCompletedPairs.add(tempHand.get(j));
                         newCompletedPairs.add(tempHand.get(i));
-                        Log.i("Go Fish", "Removing " + tempHand.get(i).getStyleId() + " and " + tempHand.get(j).getStyleId());
+                        Log.i("Go Fish", "Removing " + tempHand.get(i).getStyleId() + " and " + tempHand.get(j).getStyleId() + " From " + ((p.isHuman()) ? "human" : "nonhuman"));
                         tempHand.remove(j);
                         tempHand.remove(i);
                         changesMade = true;
                     }
+                    if (changesMade) break;
                 }
+                if (changesMade) break;
             }
         }
         p.assignHand(tempHand);
@@ -247,8 +248,8 @@ public class GoFish extends AppCompatActivity {
         easyDifficulty = getSharedPreferences("sharedPrefs", MODE_PRIVATE).getBoolean("rbNormal", true);
         Log.i("Go Fish", (easyDifficulty) ? "Easy Mode" : "Normal Mode");
 
-        ArrayList<Card> hand1 = new ArrayList<Card>();
-        ArrayList<Card> hand2 = new ArrayList<Card>();
+        ArrayList<Card> hand1 = new ArrayList<>();
+        ArrayList<Card> hand2 = new ArrayList<>();
 
         human = new Player(true);
         AI = new Player(false);
@@ -262,10 +263,12 @@ public class GoFish extends AppCompatActivity {
         // Randomly chooses either the AI or the Human as the dealer.
         // Non-dealer receives the deck containing the first-drawn card and plays first.
         if (rand.nextInt(2) == 0) {
+            Log.i("Go Fish", "Player Goes First");
             currentlyPlayerTurn = true;
             human.assignHand(hand1);
             AI.assignHand(hand2);
         } else {
+            Log.i("Go Fish", "AI Goes First");
             currentlyPlayerTurn = false;
             human.assignHand(hand2);
             AI.assignHand(hand1);
@@ -274,11 +277,21 @@ public class GoFish extends AppCompatActivity {
         Log.i("Go Fish", "Setup Complete");
         Log.i("Go Fish", human.toString());
         Log.i("Go Fish", AI.toString());
-        Log.i("Go Fish", deck.toString());
 
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                completedPairs.batchAdd(scorePoints(human));
+//                new Handler().postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        completedPairs.batchAdd(scorePoints(AI));
+//                    }
+//                }, 1000);
+//            }
+//        }, 1000);
         completedPairs.batchAdd(scorePoints(human));
         completedPairs.batchAdd(scorePoints(AI));
-
     }
 
     private void setupUI() {
@@ -364,8 +377,8 @@ public class GoFish extends AppCompatActivity {
         aiScore.setText(String.valueOf(AI.getScore()));
 
         // Cards in Hand
-        humanCardsInHand.setText("Cards in hand: " + human.getHandSize());
-        aiCardsInHand.setText("Cards in hand: " + AI.getHandSize());
+        humanCardsInHand.setText(String.format(getResources().getString(R.string.cards_in_hand), human.getHandSize()));
+        aiCardsInHand.setText(String.format(getResources().getString(R.string.cards_in_hand), AI.getHandSize()));
     }
 
     public void hideRankSelector(View v) {
@@ -378,7 +391,7 @@ public class GoFish extends AppCompatActivity {
         }
     }
 
-    public void displayButtons() {
+    private void displayButtons() {
         // Show/Hide "Do you have any" buttons based on ranks in hand
         btnAce.setVisibility(View.GONE);
         btnTwo.setVisibility(View.GONE);
