@@ -57,10 +57,16 @@
     <string name="cards_in_hand">Cards in Hand: %d</string>
     <string name="completed_pairs">Completed Pairs</string>
     <string name="do_you_have">Do you have any</string>
+    <string name="do_you_have_rank">Do you have any %s?</string>
+    <string name="match_found">Match Found!</string>
     <string name="thinking">I\'m Thinking&#8230;</string>
 
     <string name="you_won">Game Over!\nYou Win!</string>
     <string name="you_lost">Game Over!\nYou Lose.</string>
+    <string name="play_again">Would you like to play again?</string>
+
+    <string name="confirm_yes">Yes</string>
+    <string name="confirm_no">No</string>
 
 
     <!-- ____________________________________ HOW TO PLAY STRINGS _________________________________________ -->

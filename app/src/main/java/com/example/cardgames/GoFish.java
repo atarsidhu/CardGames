@@ -4,7 +4,6 @@ import android.os.Handler;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -19,7 +18,6 @@ import java.util.ArrayList;
 
 public class GoFish extends AppCompatActivity {
     // UI Components
-    private ConstraintLayout mainLayout;
     private LinearLayout playerHand;
     private LinearLayout aiHand;
     private LinearLayout rankSelector;
@@ -58,15 +56,17 @@ public class GoFish extends AppCompatActivity {
 
     // Constants
     private int STARTING_HAND_SIZE = 7;
+    private long POPUP_DISPLAY_DURATION = 1500;
 
     private void playRound() throws InterruptedException {
 
-        Log.i("Go Fish", "Playing Round");
+        updateUI();
+
+        Log.i("Go Fish", "=======================================================\nPlaying Round");
         Log.i("Go Fish", human.toString());
         Log.i("Go Fish", AI.toString());
 
         if (deck.isEmpty() || AI.hasEmptyHand() || human.hasEmptyHand()) {
-            updateUI();
             rankSelector.setVisibility(View.GONE);
             String gameOverMessage = (AI.getScore() > human.getScore()) ? "Game Over!\nYou Lose." : "Game Over!\nYou Won!";
             centreText.setText(gameOverMessage);
@@ -81,18 +81,7 @@ public class GoFish extends AppCompatActivity {
 
             lockPlayer = true;
 
-            // I'm Thinking...
-            textViewThinking.setVisibility(View.VISIBLE);
             rankSelector.setVisibility(View.GONE);
-            // askPlayerForRank(AI, human, rand.nextInt(12) + 1);
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    updateUI();
-                    textViewThinking.setVisibility(View.GONE);
-                    rankSelector.setVisibility(View.VISIBLE);
-                }
-            }, 2000);
 
             if (easyDifficulty) {
                 askPlayerForRank(AI, human, rand.nextInt(12) + 1);
@@ -134,8 +123,9 @@ public class GoFish extends AppCompatActivity {
         // Just make the rank selector visible and wait for player input
         else {
             lockPlayer = false;
+            rankSelector.setVisibility(View.VISIBLE);
+            centreText.setVisibility(View.GONE);
             updateUI();
-            // rankSelector.setVisibility(View.VISIBLE);
         }
     }
 
@@ -190,11 +180,12 @@ public class GoFish extends AppCompatActivity {
         askPlayerForRank(human, AI, rank);
     }
 
-    private void askPlayerForRank(Player asker, Player asked, int rank) throws InterruptedException {
+    private void askPlayerForRank(final Player asker, final Player asked, final int rank) throws InterruptedException {
         String askerType = (asker.isHuman()) ? "human" : "nonhuman";
         String askedType = (asked.isHuman()) ? "human" : "nonhuman";
         Log.i("Go Fish", "A " + askerType + " has asked for " + rank + "s from a " + askedType);
 
+        final boolean originalCurrentlyPlayerTurn = currentlyPlayerTurn;
 
         ArrayList<Card> returnedCards = asked.getCardsWithRank(rank);
         if (returnedCards.isEmpty()) {
@@ -207,8 +198,69 @@ public class GoFish extends AppCompatActivity {
             asker.addToHand(returnedCards);
             Log.i("Go Fish", "Cards of rank " + rank + " found!");
         }
+
         completedPairs.batchAdd(scorePoints(asker));
-        playRound();
+
+        final String[] rank_names = getResources().getStringArray(R.array.rank_names_plural);
+
+        // AI's turn
+        if (!originalCurrentlyPlayerTurn) {
+
+            // I'm Thinking...
+            textViewThinking.setVisibility(View.VISIBLE);
+            rankSelector.setVisibility(View.GONE);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    // Swap to Rank Question
+                    textViewThinking.setVisibility(View.GONE);
+                    centreText.setText(String.format(getResources().getString(R.string.do_you_have_rank), rank_names[rank-1]));
+                    centreText.setVisibility(View.VISIBLE);
+                }
+            }, 1*POPUP_DISPLAY_DURATION);
+
+            // Swap to "Go Fish" or "Match Found"
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    centreText.setVisibility(View.VISIBLE);
+                    centreText.setText((originalCurrentlyPlayerTurn == currentlyPlayerTurn) ? R.string.match_found : R.string.go_fish_description);
+                }
+            }, 2*POPUP_DISPLAY_DURATION);
+
+            // Hide Centre Text and play a new round
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    centreText.setVisibility(View.GONE);
+                    try {
+                        playRound();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, 3*POPUP_DISPLAY_DURATION);
+
+        }
+
+        // Player's Turn
+        else {
+            // Swap to "Go Fish" or "Match Found"
+            rankSelector.setVisibility(View.GONE);
+            centreText.setText((originalCurrentlyPlayerTurn == currentlyPlayerTurn) ? R.string.match_found : R.string.go_fish_description);
+            centreText.setVisibility(View.VISIBLE);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    centreText.setVisibility(View.GONE);
+                    try {
+                        playRound();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            },1*POPUP_DISPLAY_DURATION);
+        }
     }
 
     private ArrayList<Card> scorePoints(Player p) {
@@ -296,7 +348,6 @@ public class GoFish extends AppCompatActivity {
 
     private void setupUI() {
         setContentView(R.layout.activity_go_fish);
-        mainLayout = findViewById(R.id.go_fish_main_layout);
         playerHand = findViewById(R.id.playerHand);
         aiHand = findViewById(R.id.aiHand);
         rankSelector = findViewById(R.id.rankSelector);
