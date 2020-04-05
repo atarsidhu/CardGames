@@ -66,7 +66,7 @@ public class GoFish extends AppCompatActivity {
         Log.i("Go Fish", human.toString());
         Log.i("Go Fish", AI.toString());
 
-        if (deck.isEmpty() || AI.hasEmptyHand() || human.hasEmptyHand()) {
+        if ((deck.isEmpty() && AI.hasEmptyHand()) || (deck.isEmpty() && human.hasEmptyHand())) {
             rankSelector.setVisibility(View.GONE);
             String gameOverMessage = (AI.getScore() > human.getScore()) ? "Game Over!\nYou Lose." : "Game Over!\nYou Won!";
             centreText.setText(gameOverMessage);
@@ -194,6 +194,9 @@ public class GoFish extends AppCompatActivity {
             Log.i("Go Fish", "Go Fish!");
             Log.i("Go Fish", ((asker.isHuman()) ? "Human " : "Nonhuman ") + "Picking up " + cardToPickUp.getStyleId());
             asker.pickUpCard(cardToPickUp);
+
+            // If new card rank is the same as one of the cards already in your hand
+
         } else {
             asker.addToHand(returnedCards);
             Log.i("Go Fish", "Cards of rank " + rank + " found!");
@@ -217,7 +220,7 @@ public class GoFish extends AppCompatActivity {
                     centreText.setText(String.format(getResources().getString(R.string.do_you_have_rank), rank_names[rank-1]));
                     centreText.setVisibility(View.VISIBLE);
                 }
-            }, 1*POPUP_DISPLAY_DURATION);
+            }, 2*POPUP_DISPLAY_DURATION);
 
             // Swap to "Go Fish" or "Match Found"
             new Handler().postDelayed(new Runnable() {
@@ -226,7 +229,7 @@ public class GoFish extends AppCompatActivity {
                     centreText.setVisibility(View.VISIBLE);
                     centreText.setText((originalCurrentlyPlayerTurn == currentlyPlayerTurn) ? R.string.match_found : R.string.go_fish_description);
                 }
-            }, 2*POPUP_DISPLAY_DURATION);
+            }, 4*POPUP_DISPLAY_DURATION);
 
             // Hide Centre Text and play a new round
             new Handler().postDelayed(new Runnable() {
@@ -239,7 +242,7 @@ public class GoFish extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-            }, 3*POPUP_DISPLAY_DURATION);
+            }, 5*POPUP_DISPLAY_DURATION);
 
         }
 
@@ -259,7 +262,7 @@ public class GoFish extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-            },1*POPUP_DISPLAY_DURATION);
+            },POPUP_DISPLAY_DURATION);
         }
     }
 
@@ -286,6 +289,14 @@ public class GoFish extends AppCompatActivity {
             }
         }
         p.assignHand(tempHand);
+
+        if (!deck.isEmpty() && AI.hasEmptyHand()){
+            AI.pickUpCard(deck.drawTop());
+        }
+        if(!deck.isEmpty() && human.hasEmptyHand()){
+            human.pickUpCard(deck.drawTop());
+        }
+
         displayButtons();
         return newCompletedPairs;
     }
@@ -314,7 +325,7 @@ public class GoFish extends AppCompatActivity {
 
         // Randomly chooses either the AI or the Human as the dealer.
         // Non-dealer receives the deck containing the first-drawn card and plays first.
-        if (rand.nextInt(2) == 0) {
+        if (rand.nextInt(1) == 0) {
             Log.i("Go Fish", "Player Goes First");
             currentlyPlayerTurn = true;
             human.assignHand(hand1);
@@ -342,7 +353,35 @@ public class GoFish extends AppCompatActivity {
 //                }, 1000);
 //            }
 //        }, 1000);
+
         completedPairs.batchAdd(scorePoints(human));
+        if(human.getScore() > 0){
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    rankSelector.setVisibility(View.GONE);
+                    centreText.setVisibility(View.VISIBLE);
+                    if(human.getScore() == 1)
+                        centreText.setText("You started with 1 pair!");
+                    else
+                        centreText.setText("You started with " + human.getScore() + " pairs!");
+                }
+            }, 100);
+        }
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                rankSelector.setVisibility(View.VISIBLE);
+                centreText.setVisibility(View.GONE);
+                try {
+                    playRound();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, 2*POPUP_DISPLAY_DURATION);
+
         completedPairs.batchAdd(scorePoints(AI));
     }
 
