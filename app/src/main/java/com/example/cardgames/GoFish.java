@@ -21,9 +21,9 @@ public class GoFish extends AppCompatActivity {
     private LinearLayout playerHand;
     private LinearLayout aiHand;
     private LinearLayout rankSelector;
-    private View uiCompletedPairs;
     private TextView humanScore;
     private TextView aiScore;
+    private TextView cardsLeftInDeck;
     private TextView humanCardsInHand;
     private TextView aiCardsInHand;
     private TextView centreText;
@@ -66,7 +66,7 @@ public class GoFish extends AppCompatActivity {
         Log.i("Go Fish", human.toString());
         Log.i("Go Fish", AI.toString());
 
-        if ((deck.isEmpty() && AI.hasEmptyHand()) || (deck.isEmpty() && human.hasEmptyHand())) {
+        if (deck.isEmpty()) {
             rankSelector.setVisibility(View.GONE);
             String gameOverMessage = (AI.getScore() > human.getScore()) ? "Game Over!\nYou Lose." : "Game Over!\nYou Won!";
             centreText.setText(gameOverMessage);
@@ -186,6 +186,7 @@ public class GoFish extends AppCompatActivity {
         Log.i("Go Fish", "A " + askerType + " has asked for " + rank + "s from a " + askedType);
 
         final boolean originalCurrentlyPlayerTurn = currentlyPlayerTurn;
+        final int originalAskerScore = asker.getScore();
 
         ArrayList<Card> returnedCards = asked.getCardsWithRank(rank);
         if (returnedCards.isEmpty()) {
@@ -227,7 +228,7 @@ public class GoFish extends AppCompatActivity {
                 @Override
                 public void run() {
                     centreText.setVisibility(View.VISIBLE);
-                    centreText.setText((originalCurrentlyPlayerTurn == currentlyPlayerTurn) ? R.string.match_found : R.string.go_fish_description);
+                    centreText.setText((asker.getScore() > originalAskerScore) ? R.string.match_found : R.string.go_fish_description);
                 }
             }, 4*POPUP_DISPLAY_DURATION);
 
@@ -390,9 +391,9 @@ public class GoFish extends AppCompatActivity {
         playerHand = findViewById(R.id.playerHand);
         aiHand = findViewById(R.id.aiHand);
         rankSelector = findViewById(R.id.rankSelector);
-        uiCompletedPairs = findViewById(R.id.completedPairs);
         humanScore = findViewById(R.id.humanScore);
         aiScore = findViewById(R.id.aiScore);
+        cardsLeftInDeck = findViewById(R.id.cards_left_in_deck);
         humanCardsInHand = findViewById(R.id.playerCardsInHand);
         aiCardsInHand = findViewById(R.id.aiCardsInHand);
         centreText = findViewById(R.id.centreText);
@@ -455,7 +456,6 @@ public class GoFish extends AppCompatActivity {
         // AI Hand
         for (Card temp : AI.getHand()) {
             TextView tempText = new TextView(this);
-            //tempText.setText(temp.getStyleId());
             tempText.setText(temp.getRankStr());
             tempText.setBackgroundResource(R.drawable.card_back);
             tempText.setWidth(300);
@@ -466,19 +466,12 @@ public class GoFish extends AppCompatActivity {
         humanScore.setText(String.valueOf(human.getScore()));
         aiScore.setText(String.valueOf(AI.getScore()));
 
+        // Cards left in Deck
+        cardsLeftInDeck.setText(String.format(getResources().getString(R.string.cards_left_in_deck), deck.size()));
+
         // Cards in Hand
         humanCardsInHand.setText(String.format(getResources().getString(R.string.cards_in_hand), human.getHandSize()));
         aiCardsInHand.setText(String.format(getResources().getString(R.string.cards_in_hand), AI.getHandSize()));
-    }
-
-    public void hideRankSelector(View v) {
-        if (uiCompletedPairs.getVisibility() == View.GONE) {
-            uiCompletedPairs.setVisibility(View.VISIBLE);
-            rankSelector.setVisibility(View.GONE);
-        } else {
-            uiCompletedPairs.setVisibility(View.GONE);
-            rankSelector.setVisibility(View.VISIBLE);
-        }
     }
 
     private void displayButtons() {

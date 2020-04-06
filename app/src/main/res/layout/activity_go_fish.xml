@@ -240,56 +240,16 @@
             android:textColor="@color/colorBackground"
             android:textSize="36sp" />
 
-        <HorizontalScrollView
-            android:id="@+id/completedPairs"
+        <TextView
+            android:id="@+id/cards_left_in_deck"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none"
-            android:visibility="gone">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/button15"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/completed_pairs" />
-
-                <Button
-                    android:id="@+id/button23"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/completed_pairs" />
-
-                <Button
-                    android:id="@+id/button24"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/completed_pairs" />
-
-                <Button
-                    android:id="@+id/button25"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/completed_pairs" />
-
-            </LinearLayout>
-        </HorizontalScrollView>
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:foregroundGravity="center"
             android:gravity="center"
-            android:onClick="hideRankSelector"
-            android:text="@string/completed_pairs" />
+            android:padding="8dp"
+            android:text="@string/cards_left_in_deck"
+            android:textColor="@color/colorBackground"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/playerCardsInHand"

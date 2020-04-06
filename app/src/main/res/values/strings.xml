@@ -56,6 +56,7 @@
 
     <string name="cards_in_hand">Cards in Hand: %d</string>
     <string name="completed_pairs">Completed Pairs</string>
+    <string name="cards_left_in_deck">Cards Left In Deck : %d</string>
     <string name="do_you_have">Do you have any</string>
     <string name="do_you_have_rank">Do you have any %s?</string>
     <string name="match_found">Match Found!</string>
