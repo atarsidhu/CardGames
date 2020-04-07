@@ -65,6 +65,7 @@
     <string name="thinking">I\'m Thinking&#8230;</string>
     <string name="ai_turn">AI\'s Turn!</string>
     <string name="your_turn">Your Turn!</string>
+    <string name="tap_card_to_ask">Tap a card below to ask for a pair!</string>
 
     <string name="you_won">Game Over!\nYou Win!</string>
     <string name="you_lost">Game Over!\nYou Lose.</string>
