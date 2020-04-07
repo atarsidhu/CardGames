@@ -92,7 +92,7 @@ public class GoFish extends AppCompatActivity {
             noBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent startIntent = new Intent(getApplicationContext(), MainActivity.class);
+                    Intent startIntent = new Intent(getApplicationContext(), GoFishMaster.class);
                     startActivity(startIntent);
                 }
             });
@@ -215,9 +215,8 @@ public class GoFish extends AppCompatActivity {
         Log.i("Go Fish", "A " + askerType + " has asked for " + rank + "s from a " + askedType);
 
         final boolean originalCurrentlyPlayerTurn = currentlyPlayerTurn;
-        final int originalAskerScore = asker.getScore();
 
-        ArrayList<Card> returnedCards = asked.getCardsWithRank(rank);
+        final ArrayList<Card> returnedCards = asked.getCardsWithRank(rank);
         if (returnedCards.isEmpty()) {
             currentlyPlayerTurn = !currentlyPlayerTurn;
             Card cardToPickUp = deck.drawTop();
@@ -225,7 +224,34 @@ public class GoFish extends AppCompatActivity {
             Log.i("Go Fish", ((asker.isHuman()) ? "Human " : "Nonhuman ") + "Picking up " + cardToPickUp.getStyleId());
             asker.pickUpCard(cardToPickUp);
 
-            // If new card rank is the same as one of the cards already in your hand
+            // Search askers hand. If picked up card equals a card already in hand, display msg.
+            // If AI receieves match, delay msg longer
+            if(asker == AI){
+                for(int i = 0; i < asker.getHand().size() - 1; i++){
+                    if(asker.getHand().get(i).getRank() == cardToPickUp.getRank()){
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                centreText.setText(R.string.ai_match_found_from_draw);
+                                centreText.setVisibility(View.VISIBLE);
+                            }
+                        }, 7*POPUP_DISPLAY_DURATION);
+                    }
+                }
+            } else{
+                for(int i = 0; i < asker.getHand().size() - 1; i++){
+                    if(asker.getHand().get(i).getRank() == cardToPickUp.getRank()){
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                centreText.setText(R.string.match_found_from_draw);
+                                centreText.setVisibility(View.VISIBLE);
+                            }
+                        }, POPUP_DISPLAY_DURATION - 500);
+                    }
+                }
+            }
+
 
         } else {
             asker.addToHand(returnedCards);
@@ -265,7 +291,7 @@ public class GoFish extends AppCompatActivity {
                 @Override
                 public void run() {
                     centreText.setVisibility(View.VISIBLE);
-                    centreText.setText((asker.getScore() > originalAskerScore) ? R.string.match_found : R.string.go_fish_description);
+                    centreText.setText((returnedCards.isEmpty()) ? R.string.go_fish_description : R.string.match_found);
                 }
             }, 5*POPUP_DISPLAY_DURATION);
 

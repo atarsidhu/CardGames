@@ -66,7 +66,7 @@
         <LinearLayout
             android:id="@+id/rankSelector"
             android:layout_width="match_parent"
-            android:layout_height="128dp"
+            android:layout_height="150dp"
             android:gravity="center"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -82,7 +82,7 @@
                 android:text="@string/do_you_have"
                 android:textAllCaps="false"
                 android:textColor="@android:color/background_light"
-                android:textSize="36sp"
+                android:textSize="32sp"
                 android:textStyle="bold" />
 
             <ScrollView
@@ -289,7 +289,6 @@
             android:text="@string/go_fish_description"
             android:textColor="@color/fishOrange"
             android:textSize="48sp"
-            android:textStyle="bold"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -304,11 +303,13 @@
         android:textSize="36sp"
         android:textStyle="bold"
         android:visibility="invisible"
+        android:textColor="@color/fishOrange"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.26999998" />
+        app:layout_constraintVertical_bias="0.26999998"
+        app:layout_constraintHorizontal_bias="0.4"/>
     <Button
             android:text="@string/confirm_yes"
             android:layout_width="wrap_content"

@@ -57,9 +57,11 @@
     <string name="cards_in_hand">Cards in Hand: %d</string>
     <string name="completed_pairs">Completed Pairs</string>
     <string name="cards_left_in_deck">Cards Left In Deck : %d</string>
-    <string name="do_you_have">Do you have any</string>
+    <string name="do_you_have">Ask: Do you \nhave any</string>
     <string name="do_you_have_rank">Do you have any %s?</string>
     <string name="match_found">Match Found!</string>
+    <string name="ai_match_found_from_draw">The AI made a match with a Go Fish card!</string>
+    <string name="match_found_from_draw">You made a match with a Go Fish card!</string>
     <string name="thinking">I\'m Thinking&#8230;</string>
     <string name="ai_turn">AI\'s Turn!</string>
     <string name="your_turn">Your Turn!</string>
