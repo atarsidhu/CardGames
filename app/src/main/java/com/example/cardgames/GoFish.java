@@ -188,7 +188,7 @@ public class GoFish extends AppCompatActivity {
                                 centreText.setText(R.string.match_found_from_draw);
                                 centreText.setVisibility(View.VISIBLE);
                             }
-                        }, POPUP_DISPLAY_DURATION - 500);
+                        }, 4*POPUP_DISPLAY_DURATION);
                     }
                 }
             }
@@ -247,7 +247,7 @@ public class GoFish extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-            }, 6*POPUP_DISPLAY_DURATION);
+            }, 9*POPUP_DISPLAY_DURATION);
         }
 
         // Player's Turn
@@ -284,7 +284,7 @@ public class GoFish extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-            },4*POPUP_DISPLAY_DURATION);
+            },6*POPUP_DISPLAY_DURATION);
         }
     }
 
@@ -460,16 +460,19 @@ public class GoFish extends AppCompatActivity {
             tempText.setWidth(300);
             playerHand.addView(tempText, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
 
-            tempText.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    try {
-                        handleRankSelectionFromPlayer2(tempText);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+            if(!lockPlayer){
+                tempText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        try {
+                            handleRankSelectionFromPlayer2(tempText);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
-                }
-            });
+                });
+            }
+
         }
 
         // AI Hand
