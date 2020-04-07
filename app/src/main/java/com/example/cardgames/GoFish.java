@@ -57,7 +57,9 @@ public class GoFish extends AppCompatActivity {
         Log.i("Go Fish", human.toString());
         Log.i("Go Fish", AI.toString());
 
+        // Game Over Condition
         if ((deck.isEmpty() && AI.hasEmptyHand()) || (deck.isEmpty() && human.hasEmptyHand())) {
+            lockPlayer = true;
             rankSelector.setVisibility(View.GONE);
             String gameOverMessage = (AI.getScore() > human.getScore()) ? "Game Over!\nYou Lose.\nPlay Again?" : "Game Over!\nYou Won!\nPlay Again?";
             centreText.setText(gameOverMessage);
@@ -368,10 +370,8 @@ public class GoFish extends AppCompatActivity {
                 public void run() {
                     rankSelector.setVisibility(View.GONE);
                     centreText.setVisibility(View.VISIBLE);
-                    if(human.getScore() == 1)
-                        centreText.setText("You started with 1 pair!");
-                    else
-                        centreText.setText("You started with " + human.getScore() + " pairs!");
+                    if(human.getScore() >= 1)
+                        centreText.setText(String.format(getResources().getString(R.string.you_started_pair), human.getScore()));
                 }
             }, 1);
         }
