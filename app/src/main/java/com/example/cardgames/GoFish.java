@@ -1,8 +1,11 @@
 package com.example.cardgames;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Handler;
 import android.view.View;
 
+import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -41,6 +44,8 @@ public class GoFish extends AppCompatActivity {
     private View btnJack;
     private View btnQueen;
     private View btnKing;
+    private Button yesBtn;
+    private Button noBtn;
 
     // Utilities
     private Random rand;
@@ -66,12 +71,31 @@ public class GoFish extends AppCompatActivity {
         Log.i("Go Fish", human.toString());
         Log.i("Go Fish", AI.toString());
 
-        if (deck.isEmpty()) {
+        if ((deck.isEmpty() && AI.hasEmptyHand()) || (deck.isEmpty() && human.hasEmptyHand())) {
             rankSelector.setVisibility(View.GONE);
-            String gameOverMessage = (AI.getScore() > human.getScore()) ? "Game Over!\nYou Lose." : "Game Over!\nYou Won!";
+            String gameOverMessage = (AI.getScore() > human.getScore()) ? "Game Over!\nYou Lose.\nPlay Again?" : "Game Over!\nYou Won!\nPlay Again?";
             centreText.setText(gameOverMessage);
             centreText.setVisibility(View.VISIBLE);
             Log.i("Go Fish", "Game Over!");
+
+            yesBtn.setVisibility(View.VISIBLE);
+            noBtn.setVisibility(View.VISIBLE);
+            cardsLeftInDeck.setVisibility(View.GONE);
+
+            yesBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    recreate();
+                }
+            });
+
+            noBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent startIntent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(startIntent);
+                }
+            });
             return;
             //endGame();
         }
@@ -113,15 +137,13 @@ public class GoFish extends AppCompatActivity {
                 } else {
                     askPlayerForRank(AI, human, AI.getHand().get(rand.nextInt(AI.getHandSize())).getRank());
                 }
-
             }
-
         }
 
         // Player's Turn
         // Just make the rank selector visible and wait for player input
         else {
-            turn(human);
+            displayTurn(human);
             lockPlayer = false;
 
             new Handler().postDelayed(new Runnable() {
@@ -192,8 +214,6 @@ public class GoFish extends AppCompatActivity {
         String askedType = (asked.isHuman()) ? "human" : "nonhuman";
         Log.i("Go Fish", "A " + askerType + " has asked for " + rank + "s from a " + askedType);
 
-
-
         final boolean originalCurrentlyPlayerTurn = currentlyPlayerTurn;
         final int originalAskerScore = asker.getScore();
 
@@ -218,17 +238,8 @@ public class GoFish extends AppCompatActivity {
 
         // AI's turn
         if (!originalCurrentlyPlayerTurn) {
-/*            // AI's turn
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    centreText.setText(R.string.ai_turn);
-                    centreText.setVisibility(View.VISIBLE);
-                }
-            }, POPUP_DISPLAY_DURATION);
 
- */
-            turn(AI);
+            displayTurn(AI);
 
             // I'm Thinking...
             new Handler().postDelayed(new Runnable() {
@@ -270,26 +281,17 @@ public class GoFish extends AppCompatActivity {
                     }
                 }
             }, 6*POPUP_DISPLAY_DURATION);
-
         }
 
         // Player's Turn
         else {
-/*            // Player's turn
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    centreText.setText(R.string.your_turn);
-                    centreText.setVisibility(View.VISIBLE);
-                }
-            }, POPUP_DISPLAY_DURATION);
+            displayTurn(human);
 
- */
-            turn(human);
             // Swap to "Go Fish" or "Match Found"
             rankSelector.setVisibility(View.GONE);
             centreText.setText((originalCurrentlyPlayerTurn == currentlyPlayerTurn) ? R.string.match_found : R.string.go_fish_description);
             centreText.setVisibility(View.VISIBLE);
+
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -379,19 +381,6 @@ public class GoFish extends AppCompatActivity {
         Log.i("Go Fish", human.toString());
         Log.i("Go Fish", AI.toString());
 
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                completedPairs.batchAdd(scorePoints(human));
-//                new Handler().postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        completedPairs.batchAdd(scorePoints(AI));
-//                    }
-//                }, 1000);
-//            }
-//        }, 1000);
-
         completedPairs.batchAdd(scorePoints(human));
         if(human.getScore() > 0){
             new Handler().postDelayed(new Runnable() {
@@ -423,7 +412,7 @@ public class GoFish extends AppCompatActivity {
         completedPairs.batchAdd(scorePoints(AI));
     }
 
-    private void turn(Player player){
+    private void displayTurn(Player player){
         if(player == AI)
             centreText.setText(R.string.ai_turn);
         else {
@@ -459,6 +448,8 @@ public class GoFish extends AppCompatActivity {
         btnJack = findViewById(R.id.button_jacks);
         btnQueen = findViewById(R.id.button_queens);
         btnKing = findViewById(R.id.button_kings);
+        yesBtn = findViewById(R.id.yesBtn);
+        noBtn = findViewById(R.id.noBtn);
     }
 
     private void updateUI() {
@@ -497,8 +488,6 @@ public class GoFish extends AppCompatActivity {
 
             tempText.setWidth(300);
             playerHand.addView(tempText, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
-
-
         }
 
         // AI Hand
