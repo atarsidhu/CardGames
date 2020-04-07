@@ -78,7 +78,6 @@ public class GoFish extends AppCompatActivity {
 
         // AI's Turn
         if (!currentlyPlayerTurn) {
-
             lockPlayer = true;
 
             rankSelector.setVisibility(View.GONE);
@@ -122,9 +121,17 @@ public class GoFish extends AppCompatActivity {
         // Player's Turn
         // Just make the rank selector visible and wait for player input
         else {
+            turn(human);
             lockPlayer = false;
-            rankSelector.setVisibility(View.VISIBLE);
-            centreText.setVisibility(View.GONE);
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    rankSelector.setVisibility(View.VISIBLE);
+                    centreText.setVisibility(View.GONE);
+                }
+            }, 2*POPUP_DISPLAY_DURATION);
+
             updateUI();
         }
     }
@@ -185,6 +192,8 @@ public class GoFish extends AppCompatActivity {
         String askedType = (asked.isHuman()) ? "human" : "nonhuman";
         Log.i("Go Fish", "A " + askerType + " has asked for " + rank + "s from a " + askedType);
 
+
+
         final boolean originalCurrentlyPlayerTurn = currentlyPlayerTurn;
         final int originalAskerScore = asker.getScore();
 
@@ -209,10 +218,27 @@ public class GoFish extends AppCompatActivity {
 
         // AI's turn
         if (!originalCurrentlyPlayerTurn) {
+/*            // AI's turn
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    centreText.setText(R.string.ai_turn);
+                    centreText.setVisibility(View.VISIBLE);
+                }
+            }, POPUP_DISPLAY_DURATION);
+
+ */
+            turn(AI);
 
             // I'm Thinking...
-            textViewThinking.setVisibility(View.VISIBLE);
-            rankSelector.setVisibility(View.GONE);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    textViewThinking.setVisibility(View.VISIBLE);
+                    rankSelector.setVisibility(View.GONE);
+                }
+            }, POPUP_DISPLAY_DURATION);
+
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -221,7 +247,7 @@ public class GoFish extends AppCompatActivity {
                     centreText.setText(String.format(getResources().getString(R.string.do_you_have_rank), rank_names[rank-1]));
                     centreText.setVisibility(View.VISIBLE);
                 }
-            }, 2*POPUP_DISPLAY_DURATION);
+            }, 3*POPUP_DISPLAY_DURATION);
 
             // Swap to "Go Fish" or "Match Found"
             new Handler().postDelayed(new Runnable() {
@@ -230,7 +256,7 @@ public class GoFish extends AppCompatActivity {
                     centreText.setVisibility(View.VISIBLE);
                     centreText.setText((asker.getScore() > originalAskerScore) ? R.string.match_found : R.string.go_fish_description);
                 }
-            }, 4*POPUP_DISPLAY_DURATION);
+            }, 5*POPUP_DISPLAY_DURATION);
 
             // Hide Centre Text and play a new round
             new Handler().postDelayed(new Runnable() {
@@ -243,12 +269,23 @@ public class GoFish extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-            }, 5*POPUP_DISPLAY_DURATION);
+            }, 6*POPUP_DISPLAY_DURATION);
 
         }
 
         // Player's Turn
         else {
+/*            // Player's turn
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    centreText.setText(R.string.your_turn);
+                    centreText.setVisibility(View.VISIBLE);
+                }
+            }, POPUP_DISPLAY_DURATION);
+
+ */
+            turn(human);
             // Swap to "Go Fish" or "Match Found"
             rankSelector.setVisibility(View.GONE);
             centreText.setText((originalCurrentlyPlayerTurn == currentlyPlayerTurn) ? R.string.match_found : R.string.go_fish_description);
@@ -263,7 +300,7 @@ public class GoFish extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-            },POPUP_DISPLAY_DURATION);
+            },2*POPUP_DISPLAY_DURATION);
         }
     }
 
@@ -367,7 +404,7 @@ public class GoFish extends AppCompatActivity {
                     else
                         centreText.setText("You started with " + human.getScore() + " pairs!");
                 }
-            }, 100);
+            }, 1);
         }
 
         new Handler().postDelayed(new Runnable() {
@@ -381,9 +418,20 @@ public class GoFish extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-        }, 2*POPUP_DISPLAY_DURATION);
+        }, POPUP_DISPLAY_DURATION);
 
         completedPairs.batchAdd(scorePoints(AI));
+    }
+
+    private void turn(Player player){
+        if(player == AI)
+            centreText.setText(R.string.ai_turn);
+        else {
+            centreText.setText(R.string.your_turn);
+            rankSelector.setVisibility(View.GONE);
+        }
+
+        centreText.setVisibility(View.VISIBLE);
     }
 
     private void setupUI() {

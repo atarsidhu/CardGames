@@ -61,6 +61,8 @@
     <string name="do_you_have_rank">Do you have any %s?</string>
     <string name="match_found">Match Found!</string>
     <string name="thinking">I\'m Thinking&#8230;</string>
+    <string name="ai_turn">AI\'s Turn!</string>
+    <string name="your_turn">Your Turn!</string>
 
     <string name="you_won">Game Over!\nYou Win!</string>
     <string name="you_lost">Game Over!\nYou Lose.</string>
