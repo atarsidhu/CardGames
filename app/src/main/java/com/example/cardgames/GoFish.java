@@ -87,7 +87,6 @@ public class GoFish extends AppCompatActivity {
 
         // AI's Turn
         if (!currentlyPlayerTurn) {
-            lockPlayer = true;
 
             rankSelector.setVisibility(View.GONE);
 
@@ -128,9 +127,8 @@ public class GoFish extends AppCompatActivity {
         // Player's Turn
         // Just make the rank selector visible and wait for player input
         else {
-            displayTurn(human);
             lockPlayer = false;
-
+            displayTurn(human);
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -145,7 +143,7 @@ public class GoFish extends AppCompatActivity {
 
     public void handleRankSelectionFromPlayer2(View v) throws InterruptedException {
         if (lockPlayer) return;
-
+        lockPlayer = true;
         int rank = v.getId();
         askPlayerForRank(human, AI, rank);
     }
@@ -395,13 +393,12 @@ public class GoFish extends AppCompatActivity {
     }
 
     private void displayTurn(Player player){
-        if(player == AI)
+        if(!player.isHuman())
             centreText.setText(R.string.ai_turn);
         else {
             centreText.setText(R.string.your_turn);
             rankSelector.setVisibility(View.GONE);
         }
-
         centreText.setVisibility(View.VISIBLE);
     }
 
@@ -460,7 +457,6 @@ public class GoFish extends AppCompatActivity {
             tempText.setWidth(300);
             playerHand.addView(tempText, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
 
-            if(!lockPlayer){
                 tempText.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -471,8 +467,6 @@ public class GoFish extends AppCompatActivity {
                         }
                     }
                 });
-            }
-
         }
 
         // AI Hand
