@@ -93,7 +93,7 @@
         2.  After receiving cards, either from another player or from the deck, a player may search for pairs of cards within their hand. A pair is any two cards of the same rank, regardless of suit.
         If any pairs are found, they are removed from the game, and that player scores a point for each pair found.
     </string>
-    <string name="go_fish_winning">A game is completed once there are no more cards left to draw, or one of the players empties their hand. The player with the most points wins.</string>
+    <string name="go_fish_winning">A game is completed once there are no more cards left to draw, and one of the players has emptied their hand. The player with the most points wins.</string>
 
     <!-- _____________________________________ SETTINGS STRINGS __________________________________________ -->
 
