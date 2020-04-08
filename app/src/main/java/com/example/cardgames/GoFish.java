@@ -44,7 +44,6 @@ public class GoFish extends AppCompatActivity {
     private boolean currentlyPlayerTurn;
     private boolean lockPlayer = true;
     private boolean easyDifficulty = true;
-    private boolean matchFromGoFishCard = false;
 
     // Constants
     private int STARTING_HAND_SIZE = 7;
@@ -64,11 +63,11 @@ public class GoFish extends AppCompatActivity {
             rankSelector.setVisibility(View.GONE);
             String gameOverMessage = (AI.getScore() > human.getScore()) ? "Game Over!\nYou Lose.\nPlay Again?" : "Game Over!\nYou Won!\nPlay Again?";
             if(AI.getScore() == human.getScore())
-                gameOverMessage = "Game Over!\nIt's a Tie!\nPlay Again?";
+                gameOverMessage = "Game Over!\nTie Game.\nPlay Again?";
             centreText.setText(gameOverMessage);
             centreText.setVisibility(View.VISIBLE);
             Log.i("Go Fish", "Game Over!");
-
+            
             yesBtn.setVisibility(View.VISIBLE);
             noBtn.setVisibility(View.VISIBLE);
             cardsLeftInDeck.setVisibility(View.GONE);
@@ -178,7 +177,8 @@ public class GoFish extends AppCompatActivity {
                             public void run() {
                                 centreText.setText(R.string.ai_match_found_from_draw);
                                 centreText.setVisibility(View.VISIBLE);
-                                matchFromGoFishCard = true;
+                                humanScore.setVisibility(View.GONE);
+                                aiScore.setVisibility(View.GONE);
                             }
                         }, 7 * POPUP_DISPLAY_DURATION);
                     }
@@ -191,7 +191,8 @@ public class GoFish extends AppCompatActivity {
                             public void run() {
                                 centreText.setText(R.string.match_found_from_draw);
                                 centreText.setVisibility(View.VISIBLE);
-                                matchFromGoFishCard = true;
+                                humanScore.setVisibility(View.GONE);
+                                aiScore.setVisibility(View.GONE);
                             }
                         }, 4*POPUP_DISPLAY_DURATION);
                     }
@@ -241,35 +242,20 @@ public class GoFish extends AppCompatActivity {
                 }
             }, 5*POPUP_DISPLAY_DURATION);
 
-            //If match found or if !match from go fish card, speed up the play round
-            if(!returnedCards.isEmpty() || !matchFromGoFishCard){
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        centreText.setVisibility(View.GONE);
-                        try {
-                            playRound();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+            // Hide Centre Text and play a new round
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    centreText.setVisibility(View.GONE);
+                    humanScore.setVisibility(View.VISIBLE);
+                    aiScore.setVisibility(View.VISIBLE);
+                    try {
+                        playRound();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
-                }, 7*POPUP_DISPLAY_DURATION);
-            }else{
-                // Hide Centre Text and play a new round
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        centreText.setVisibility(View.GONE);
-                        try {
-                            playRound();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, 9*POPUP_DISPLAY_DURATION);
-            }
-
-
+                }
+            }, 9*POPUP_DISPLAY_DURATION);
         }
 
         // Player's Turn
@@ -295,32 +281,20 @@ public class GoFish extends AppCompatActivity {
                 }
             }, 2*POPUP_DISPLAY_DURATION);
 
-            //If match found or if !match from go fish card, speed up the play round
-            if(!returnedCards.isEmpty() || !matchFromGoFishCard){
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        centreText.setVisibility(View.GONE);
-                        try {
-                            playRound();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    centreText.setVisibility(View.GONE);
+                    humanScore.setVisibility(View.VISIBLE);
+                    aiScore.setVisibility(View.VISIBLE);
+                    try {
+                        playRound();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
-                }, 4*POPUP_DISPLAY_DURATION);
-            }else{
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        centreText.setVisibility(View.GONE);
-                        try {
-                            playRound();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },6*POPUP_DISPLAY_DURATION);
-            }
+                }
+            },6*POPUP_DISPLAY_DURATION);
         }
     }
 
@@ -436,7 +410,6 @@ public class GoFish extends AppCompatActivity {
             rankSelector.setVisibility(View.GONE);
         }
         centreText.setVisibility(View.VISIBLE);
-        matchFromGoFishCard = false;
     }
 
     private void setupUI() {
