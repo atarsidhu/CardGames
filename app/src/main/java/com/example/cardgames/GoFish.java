@@ -62,6 +62,8 @@ public class GoFish extends AppCompatActivity {
             lockPlayer = true;
             rankSelector.setVisibility(View.GONE);
             String gameOverMessage = (AI.getScore() > human.getScore()) ? "Game Over!\nYou Lose.\nPlay Again?" : "Game Over!\nYou Won!\nPlay Again?";
+            if(AI.getScore() == human.getScore())
+                gameOverMessage = "Game Over!\nTie Game.\nPlay Again?";
             centreText.setText(gameOverMessage);
             centreText.setVisibility(View.VISIBLE);
             Log.i("Go Fish", "Game Over!");
@@ -479,8 +481,8 @@ public class GoFish extends AppCompatActivity {
         }
 
         // Scores
-        humanScore.setText(String.valueOf(human.getScore()));
-        aiScore.setText(String.valueOf(AI.getScore()));
+        humanScore.setText(String.format(getResources().getString(R.string.your_score), human.getScore()));
+        aiScore.setText(String.format(getResources().getString(R.string.ai_score), AI.getScore()));
 
         // Cards left in Deck
         cardsLeftInDeck.setText(String.format(getResources().getString(R.string.cards_left_in_deck), deck.size()));

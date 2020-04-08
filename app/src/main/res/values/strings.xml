@@ -68,6 +68,8 @@
     <string name="tap_card_to_ask">Tap a card below to ask for a pair!</string>
     <string name="you_started_pair">You started with %d pair(s)!</string>
 
+    <string name="your_score">Your score: %d</string>
+    <string name="ai_score">AI score: %d</string>
 
     <string name="you_won">Game Over!\nYou Win!</string>
     <string name="you_lost">Game Over!\nYou Lose.</string>
