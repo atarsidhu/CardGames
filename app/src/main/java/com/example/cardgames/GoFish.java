@@ -67,7 +67,7 @@ public class GoFish extends AppCompatActivity {
             centreText.setText(gameOverMessage);
             centreText.setVisibility(View.VISIBLE);
             Log.i("Go Fish", "Game Over!");
-            
+
             yesBtn.setVisibility(View.VISIBLE);
             noBtn.setVisibility(View.VISIBLE);
             cardsLeftInDeck.setVisibility(View.GONE);
