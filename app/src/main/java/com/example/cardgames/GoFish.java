@@ -141,11 +141,11 @@ public class GoFish extends AppCompatActivity {
         // Player's Turn
         // Just make the rank selector visible and wait for player input
         else {
-            lockPlayer = false;
             displayTurn(human);
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    lockPlayer = false;
                     rankSelector.setVisibility(View.VISIBLE);
                     centreText.setVisibility(View.GONE);
                 }
@@ -435,6 +435,7 @@ public class GoFish extends AppCompatActivity {
                 rankSelector.setVisibility(View.VISIBLE);
                 centreText.setVisibility(View.GONE);
                 try {
+                    lockPlayer = false;
                     playRound();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
