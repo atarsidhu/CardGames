@@ -255,6 +255,7 @@ public class GoFish extends AppCompatActivity {
                 }
             }, 5*POPUP_DISPLAY_DURATION);
 
+            // If match from Go Fish card, speed up the round
             if(matchFoundFromGoFish){
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -268,7 +269,7 @@ public class GoFish extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     }
-                }, 7*POPUP_DISPLAY_DURATION);
+                }, 9*POPUP_DISPLAY_DURATION); // Display is long because the message is displayed
             } else{
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -282,7 +283,7 @@ public class GoFish extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     }
-                }, 9*POPUP_DISPLAY_DURATION);
+                }, 7*POPUP_DISPLAY_DURATION); // Display is shorter because the message is not displayed
             }
         }
 
@@ -309,6 +310,7 @@ public class GoFish extends AppCompatActivity {
                 }
             }, 2*POPUP_DISPLAY_DURATION);
 
+            // If match from Go Fish card, speed up the round
             if(matchFoundFromGoFish){
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -322,7 +324,7 @@ public class GoFish extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     }
-                }, 4*POPUP_DISPLAY_DURATION);
+                }, 6*POPUP_DISPLAY_DURATION); // Delay is longer so the message is played
             }else{
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -336,7 +338,7 @@ public class GoFish extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     }
-                },6*POPUP_DISPLAY_DURATION);
+                },4*POPUP_DISPLAY_DURATION); // Delay is shorter because the message is not displayed
             }
         }
     }
