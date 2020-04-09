@@ -58,19 +58,28 @@ public class GoFish extends AppCompatActivity {
         Log.i("Go Fish", AI.toString());
 
         // Game Over Condition
-        if ((deck.isEmpty() && AI.hasEmptyHand()) || (deck.isEmpty() && human.hasEmptyHand())) {
+        if ((deck.isEmpty() && AI.getHand().isEmpty()) || (deck.isEmpty() && human.getHand().isEmpty())) {
             lockPlayer = true;
             rankSelector.setVisibility(View.GONE);
-            String gameOverMessage = (AI.getScore() > human.getScore()) ? "Game Over!\nYou Lose.\nPlay Again?" : "Game Over!\nYou Won!\nPlay Again?";
+
+            String gameOverMessage = (AI.getScore() > human.getScore())
+                    ? "Game Over!\nYou Lost " + AI.getScore() + " - " + human.getScore() + "\nPlay Again?"
+                    : "Game Over!\nYou Won "  + human.getScore() + " - " + AI.getScore() + "\nPlay Again?";
             if(AI.getScore() == human.getScore())
-                gameOverMessage = "Game Over!\nTie Game.\nPlay Again?";
+                gameOverMessage = "Game Over!\nTie Game " + AI.getScore() + " - " + human.getScore() + "\nPlay Again?";
+
             centreText.setText(gameOverMessage);
             centreText.setVisibility(View.VISIBLE);
-            Log.i("Go Fish", "Game Over!");
-            
+            humanScore.setVisibility(View.GONE);
+            aiScore.setVisibility(View.GONE);
+            aiCardsInHand.setVisibility(View.GONE);
+            humanCardsInHand.setVisibility(View.GONE);
+            playerHand.setVisibility(View.GONE);
+            aiHand.setVisibility(View.GONE);
             yesBtn.setVisibility(View.VISIBLE);
             noBtn.setVisibility(View.VISIBLE);
             cardsLeftInDeck.setVisibility(View.GONE);
+            Log.i("Go Fish", "Game Over!");
 
             yesBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
