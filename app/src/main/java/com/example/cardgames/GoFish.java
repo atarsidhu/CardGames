@@ -44,6 +44,7 @@ public class GoFish extends AppCompatActivity {
     private boolean currentlyPlayerTurn;
     private boolean lockPlayer = true;
     private boolean easyDifficulty = true;
+    private boolean matchFoundFromGoFish = true;
 
     // Constants
     private int STARTING_HAND_SIZE = 7;
@@ -178,12 +179,14 @@ public class GoFish extends AppCompatActivity {
 
             // Search askers hand. If picked up card equals a card already in hand, display msg.
             // If AI receieves match, delay msg longer
+            matchFoundFromGoFish = false;
             if(asker == AI){
                 for(int i = 0; i < asker.getHand().size() - 1; i++){
                     if(asker.getHand().get(i).getRank() == cardToPickUp.getRank()){
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
+                                matchFoundFromGoFish = true;
                                 centreText.setText(R.string.ai_match_found_from_draw);
                                 centreText.setVisibility(View.VISIBLE);
                                 humanScore.setVisibility(View.GONE);
@@ -198,6 +201,7 @@ public class GoFish extends AppCompatActivity {
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
+                                matchFoundFromGoFish = true;
                                 centreText.setText(R.string.match_found_from_draw);
                                 centreText.setVisibility(View.VISIBLE);
                                 humanScore.setVisibility(View.GONE);
@@ -251,20 +255,35 @@ public class GoFish extends AppCompatActivity {
                 }
             }, 5*POPUP_DISPLAY_DURATION);
 
-            // Hide Centre Text and play a new round
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    centreText.setVisibility(View.GONE);
-                    humanScore.setVisibility(View.VISIBLE);
-                    aiScore.setVisibility(View.VISIBLE);
-                    try {
-                        playRound();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+            if(matchFoundFromGoFish){
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        centreText.setVisibility(View.GONE);
+                        humanScore.setVisibility(View.VISIBLE);
+                        aiScore.setVisibility(View.VISIBLE);
+                        try {
+                            playRound();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
-                }
-            }, 9*POPUP_DISPLAY_DURATION);
+                }, 7*POPUP_DISPLAY_DURATION);
+            } else{
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        centreText.setVisibility(View.GONE);
+                        humanScore.setVisibility(View.VISIBLE);
+                        aiScore.setVisibility(View.VISIBLE);
+                        try {
+                            playRound();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, 9*POPUP_DISPLAY_DURATION);
+            }
         }
 
         // Player's Turn
@@ -290,20 +309,35 @@ public class GoFish extends AppCompatActivity {
                 }
             }, 2*POPUP_DISPLAY_DURATION);
 
-
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    centreText.setVisibility(View.GONE);
-                    humanScore.setVisibility(View.VISIBLE);
-                    aiScore.setVisibility(View.VISIBLE);
-                    try {
-                        playRound();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+            if(matchFoundFromGoFish){
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        centreText.setVisibility(View.GONE);
+                        humanScore.setVisibility(View.VISIBLE);
+                        aiScore.setVisibility(View.VISIBLE);
+                        try {
+                            playRound();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
-                }
-            },6*POPUP_DISPLAY_DURATION);
+                }, 4*POPUP_DISPLAY_DURATION);
+            }else{
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        centreText.setVisibility(View.GONE);
+                        humanScore.setVisibility(View.VISIBLE);
+                        aiScore.setVisibility(View.VISIBLE);
+                        try {
+                            playRound();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },6*POPUP_DISPLAY_DURATION);
+            }
         }
     }
 
