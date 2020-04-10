@@ -145,9 +145,9 @@ public class GoFish extends AppCompatActivity {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    lockPlayer = false;
                     rankSelector.setVisibility(View.VISIBLE);
                     centreText.setVisibility(View.GONE);
+                    lockPlayer = false;
                 }
             }, 2*POPUP_DISPLAY_DURATION);
 
@@ -214,6 +214,7 @@ public class GoFish extends AppCompatActivity {
 
 
         } else {
+            matchFoundFromGoFish = false;
             asker.addToHand(returnedCards);
             Log.i("Go Fish", "Cards of rank " + rank + " found!");
         }
@@ -255,7 +256,7 @@ public class GoFish extends AppCompatActivity {
                 }
             }, 5*POPUP_DISPLAY_DURATION);
 
-            // If match from Go Fish card, speed up the round
+            // If match from Go Fish card, slow up the round
             if(matchFoundFromGoFish){
                 new Handler().postDelayed(new Runnable() {
                     @Override
