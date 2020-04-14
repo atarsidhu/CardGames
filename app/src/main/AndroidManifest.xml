@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.cardgames">
+    package="theoatar.cardgames">
 
     <application
         android:allowBackup="true"
@@ -10,26 +10,26 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".GoFishInstructions"
-            android:parentActivityName=".GoFishMaster">
+            android:name="theoatar.cardgames.GoFishInstructions"
+            android:parentActivityName="theoatar.cardgames.GoFishMaster">
         </activity>
         <activity
-            android:name=".GoFishSettings"
-            android:parentActivityName=".GoFishMaster">
+            android:name="theoatar.cardgames.GoFishSettings"
+            android:parentActivityName="theoatar.cardgames.GoFishMaster">
         </activity>
         <activity
-            android:name=".GoFishMaster"
-            android:parentActivityName=".MainActivity">
+            android:name="theoatar.cardgames.GoFishMaster"
+            android:parentActivityName="theoatar.cardgames.MainActivity">
         </activity>
         <activity
-            android:name=".Blackjack"
-            android:parentActivityName=".MainActivity">
+            android:name="theoatar.cardgames.Blackjack"
+            android:parentActivityName="theoatar.cardgames.MainActivity">
         </activity>
         <activity
-            android:name=".GoFish"
-            android:parentActivityName=".GoFishMaster">
+            android:name="theoatar.cardgames.GoFish"
+            android:parentActivityName="theoatar.cardgames.GoFishMaster">
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name="theoatar.cardgames.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,7 +37,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DifficultyPopUp"
+            android:name="theoatar.cardgames.DifficultyPopUp"
             android:theme="@style/AppTheme.DifficultyPopupTheme">
         </activity>
         <meta-data

@@ -1,9 +1,6 @@
-package com.example.cardgames.cardframework;
+package theoatar.cardgames.cardframework;
 
 import android.util.Log;
-
-import java.io.Console;
-import java.util.logging.ConsoleHandler;
 
 /**
  * A single playing card.<br>

@@ -1,4 +1,4 @@
-package com.example.cardgames;
+package theoatar.cardgames;
 
 import org.junit.Test;
 

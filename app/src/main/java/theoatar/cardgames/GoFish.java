@@ -1,4 +1,4 @@
-package com.example.cardgames;
+package theoatar.cardgames;
 
 import android.content.Intent;
 import android.os.Handler;
@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import java.util.Random;
 
-import com.example.cardgames.cardframework.*;
+import theoatar.cardgames.cardframework.*;
 
 import java.util.ArrayList;
 
@@ -145,9 +145,9 @@ public class GoFish extends AppCompatActivity {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    lockPlayer = false;
                     rankSelector.setVisibility(View.VISIBLE);
                     centreText.setVisibility(View.GONE);
+                    lockPlayer = false;
                 }
             }, 2*POPUP_DISPLAY_DURATION);
 
@@ -214,6 +214,7 @@ public class GoFish extends AppCompatActivity {
 
 
         } else {
+            matchFoundFromGoFish = false;
             asker.addToHand(returnedCards);
             Log.i("Go Fish", "Cards of rank " + rank + " found!");
         }

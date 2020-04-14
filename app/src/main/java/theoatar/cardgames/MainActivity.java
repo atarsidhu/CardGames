@@ -1,14 +1,11 @@
-package com.example.cardgames;
+package theoatar.cardgames;
 
 import android.content.Intent;
-import android.media.Image;
-import android.media.MediaPlayer;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.RadioButton;
+
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     //MediaPlayer backgroundMusic;

@@ -1,4 +1,4 @@
-package com.example.cardgames.cardframework;
+package theoatar.cardgames.cardframework;
 
 import java.util.ArrayList;
 import java.util.Random;
