@@ -256,7 +256,7 @@ public class GoFish extends AppCompatActivity {
                 }
             }, 5*POPUP_DISPLAY_DURATION);
 
-            // If match from Go Fish card, speed up the round
+            // If match from Go Fish card, slow up the round
             if(matchFoundFromGoFish){
                 new Handler().postDelayed(new Runnable() {
                     @Override
